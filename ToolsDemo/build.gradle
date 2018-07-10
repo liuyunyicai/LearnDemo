@@ -1,0 +1,46 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext.kotlin_version = '1.2.50'
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.0-beta01'
+        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha02"
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.2-4'
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:0.12.613"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+    afterEvaluate { project ->
+        println "Adding test task to $project"
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext.versions = ['dagger': "2.11"]
+ext.deps = [
+        'dagger': [
+            'core': "com.google.dagger:dagger:${versions.dagger}",
+            'compiler': "com.google.dagger:dagger-compiler:${versions.dagger}",
+            'android': "com.google.dagger:dagger-android:${versions.dagger}",
+            'support': "com.google.dagger:dagger-android-support:${versions.dagger}",
+            'processor': "com.google.dagger:dagger-android-processor:${versions.dagger}"
+        ]
+]
