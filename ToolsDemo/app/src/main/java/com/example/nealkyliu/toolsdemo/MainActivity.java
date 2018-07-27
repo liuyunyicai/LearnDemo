@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.nealkyliu.toolsdemo.bussiness.config.AppConfigCenter;
 import com.example.nealkyliu.toolsdemo.bussiness.test.job.TestExecutor;
 import com.example.nealkyliu.toolsdemo.lifecycle.LifeCycleActivity;
 import com.example.nealkyliu.toolsdemo.livedata.activity.AbsDemoActivity;
@@ -14,13 +15,12 @@ import com.example.nealkyliu.toolsdemo.livedata.activity.TestNameActivity;
 import com.example.nealkyliu.toolsdemo.livedata.fragment.NameFragment1;
 import com.example.nealkyliu.toolsdemo.livedata.fragment.NameFragment2;
 import com.example.nealkyliu.toolsdemo.livedata.fragment.NameFragment3;
-import com.example.nealkyliu.toolsdemo.utils.Logger;
-
-import dagger.android.AndroidInjection;
 
 public class MainActivity extends AbsDemoActivity {
     private Button mText;
     private Button mGoLifeCycle;
+    private Button mGetAppSettingValueBt;
+    private Button mSaveAppSettingBt;
     boolean mSwitched = false;
 
     private NameFragment1 mNameFragment1 = new NameFragment1();
@@ -35,13 +35,24 @@ public class MainActivity extends AbsDemoActivity {
         // Other code to setup the activity...
         mText = findViewById(R.id.mText);
         mGoLifeCycle = findViewById(R.id.mGoLifeCycle);
+        mGetAppSettingValueBt = findViewById(R.id.mGetAppSetting);
+        mSaveAppSettingBt =findViewById(R.id.mSaveAppSetting);
 
         addOnClickListener(mText);
         addOnClickListener(mGoLifeCycle);
+        addOnClickListener(mGetAppSettingValueBt);
+        addOnClickListener(mSaveAppSettingBt);
 
         resumeFragment(R.id.fragment_container2, mNameFragment3);
 
+        AppConfigCenter.init(this);
+
         TestExecutor.executeTest();
+         new Thread(new Runnable() {
+             @Override
+             public void run() {
+             }
+         }).start();
     }
 
     @Override
@@ -70,6 +81,12 @@ public class MainActivity extends AbsDemoActivity {
                 break;
             case R.id.mGoLifeCycle:
                 startActivity(new Intent(this, LifeCycleActivity.class));
+                break;
+            case R.id.mGetAppSetting:
+                AppConfigCenter.getInstance().loadAll();
+                break;
+            case R.id.mSaveAppSetting:
+                AppConfigCenter.getInstance().saveAll();
                 break;
         }
 

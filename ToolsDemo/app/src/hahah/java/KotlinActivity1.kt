@@ -17,6 +17,7 @@ abstract class KotlinActivity1 : AppCompatActivity() , View.OnClickListener{
         when (v?.id) {
         }
 
+        KotlinTest.hello()
     }
 
 //    private lateinit var mTagText : TextView
@@ -29,7 +30,7 @@ abstract class KotlinActivity1 : AppCompatActivity() , View.OnClickListener{
 //        mTagText = findViewById(R.id.mTagText)
 //        mTagText.setText(getLocale("en-us").toString())
 
-        mTagText.setText("KotlinActivity1")
+        mTagText.setText(R.string.tag_name)
 //        mNameText.setText("")
 //        mNameText1111.setText("")
 

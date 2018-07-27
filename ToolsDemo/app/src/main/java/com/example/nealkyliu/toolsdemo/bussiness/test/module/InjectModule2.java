@@ -3,6 +3,7 @@ package com.example.nealkyliu.toolsdemo.bussiness.test.module;
 import com.example.nealkyliu.toolsdemo.bussiness.test.classed.IAbsClass;
 import com.example.nealkyliu.toolsdemo.bussiness.test.classed.IAbsClassImpl1;
 import com.example.nealkyliu.toolsdemo.bussiness.test.classed.IInjectClass;
+import com.example.nealkyliu.toolsdemo.bussiness.test.classed.InjectClass2;
 import com.example.nealkyliu.toolsdemo.bussiness.test.classed.InjectClass3;
 
 import dagger.Binds;

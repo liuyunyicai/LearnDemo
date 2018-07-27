@@ -6,6 +6,8 @@ import com.example.nealkyliu.toolsdemo.bussiness.test.classed.InjectClass;
 import com.example.nealkyliu.toolsdemo.bussiness.test.classed.InjectClass1;
 import com.example.nealkyliu.toolsdemo.bussiness.test.classed.InjectClass2;
 import com.example.nealkyliu.toolsdemo.bussiness.test.classed.InjectClass3;
+import com.example.nealkyliu.toolsdemo.bussiness.test.scope.ActivityScope;
+import com.example.nealkyliu.toolsdemo.bussiness.test.scope.FragmentScope;
 
 import javax.inject.Named;
 import javax.inject.Singleton;

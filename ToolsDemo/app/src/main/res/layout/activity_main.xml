@@ -7,14 +7,38 @@
     tools:context="com.example.nealkyliu.toolsdemo.MainActivity"
     android:orientation="vertical"
     >
-    <Button
-        android:id="@+id/mGoLifeCycle"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="5dp"
-        android:text="Test LifeCycle!"
-        />
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/mGoLifeCycle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Test LifeCycle!"
+            />
+
+        <Button
+            android:id="@+id/mGetAppSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="GetAppSettingValue"
+            />
+
+        <Button
+            android:id="@+id/mSaveAppSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="SaveAppSetting"
+            />
+    </LinearLayout>
 
     <Button
         android:id="@+id/mText"

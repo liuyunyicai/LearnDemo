@@ -2,6 +2,7 @@ package com.example.nealkyliu.toolsdemo.bussiness.test.job;
 
 import android.content.Context;
 
+import com.example.nealkyliu.toolsdemo.LiveDataApplication;
 import com.example.nealkyliu.toolsdemo.bussiness.test.classed.IInjectClass;
 import com.example.nealkyliu.toolsdemo.bussiness.test.classed.InjectClass2;
 import com.example.nealkyliu.toolsdemo.bussiness.test.classed.InjectClass3;
@@ -42,6 +43,7 @@ public class TestJobImpl {
     @ContextLife("Application")
     @Inject
     Context mAppContext;
+
 //
 //    @Inject
 //    InjectClass3 mClass3;
@@ -50,9 +52,9 @@ public class TestJobImpl {
 //    IInjectClass mClassCCCCl;
 //
     public TestJobImpl() {
-        InjectComponent component = DaggerInjectComponent.builder()
-                .build();
-        component.inject(this);
+//        InjectComponent component = DaggerInjectComponent.builder()
+//                .build();
+//        component.inject(this);
     }
 //
     public void testMain() {
@@ -62,11 +64,14 @@ public class TestJobImpl {
                 return new InjectClass3();
             }
         }).build();
+        component.inject(this);
         Logger.d(this, "testMain isSame == " + (component.getInjectClass() == component.getInjectClass()));
 
-        mClass1.test();
-        mClass12.test();
-        mInjectClass2Lazy.get().test();
+//        mClass1.test();
+//        mClass12.test();
+//        mInjectClass2Lazy.get().test();
+
+        LiveDataApplication.getInst().test();
 //        mClass1.test();
 //        mClassCCCCl.test();
     }

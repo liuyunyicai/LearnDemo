@@ -8,7 +8,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.nealkyliu.toolsdemo"
-        minSdkVersion 15
+        minSdkVersion 24
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -83,12 +83,24 @@ android {
 
         implementation project(':account')
         implementation project(':module1')
-        implementation project(':module2')
+        implementation project(':setting')
+        annotationProcessor project(':setting')
         implementation project(':module3')
 
 
+        implementation deps.kotlin.core
+        implementation deps.kotlin.coroutines
+        implementation deps.kotlin.ktx
+        implementation deps.kotlin.coroutines_android
 
         implementation project(':network')
+
+        implementation "android.arch.persistence.room:runtime:1.1.1"
+        kapt "android.arch.persistence.room:compiler:1.1.1"
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
 }
 repositories {

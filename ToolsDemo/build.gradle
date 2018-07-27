@@ -4,8 +4,8 @@ buildscript {
     ext.kotlin_version = '1.2.50'
 
     repositories {
-        google()
         jcenter()
+        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0-beta01'
@@ -22,8 +22,8 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
         jcenter()
+        google()
     }
     afterEvaluate { project ->
         println "Adding test task to $project"
@@ -34,7 +34,9 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-ext.versions = ['dagger': "2.11"]
+ext.versions = ['dagger': "2.11",
+                'kotlin': kotlin_version
+    ]
 ext.deps = [
         'dagger': [
             'core': "com.google.dagger:dagger:${versions.dagger}",
@@ -42,5 +44,11 @@ ext.deps = [
             'android': "com.google.dagger:dagger-android:${versions.dagger}",
             'support': "com.google.dagger:dagger-android-support:${versions.dagger}",
             'processor': "com.google.dagger:dagger-android-processor:${versions.dagger}"
+        ],
+        'kotlin': [
+                'core': "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}",
+                'coroutines': 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.20',
+                'ktx': 'androidx.core:core-ktx:0.2',
+                'coroutines_android': "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"
         ]
 ]
