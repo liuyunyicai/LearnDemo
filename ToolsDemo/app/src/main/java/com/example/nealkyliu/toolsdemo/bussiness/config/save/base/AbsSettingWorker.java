@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.example.nealkyliu.toolsdemo.bussiness.config.save.ISettingWorker;
-import com.example.nealkyliu.toolsdemo.utils.Logger;
+import com.example.nealkyliu.toolsdemo.utils.LogUtils;
 
 import java.util.Map;
 
@@ -49,7 +49,7 @@ public abstract class AbsSettingWorker implements ISettingWorker {
 
     private void logCostTime(String secondTag, long startTime) {
         long endTime = System.currentTimeMillis();
-        Logger.d(getTag() + secondTag, "Cost Time == " + (endTime - startTime));
+        LogUtils.d(getTag() + secondTag, "Cost Time == " + (endTime - startTime));
     }
 
     protected abstract String getTag();

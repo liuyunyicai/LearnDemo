@@ -6,7 +6,7 @@ import android.util.Log;
  * Created by nealkyliu on 2018/6/20.
  */
 
-public class Logger {
+public class LogUtils {
 
     public static final String TAG = "ToolsDemoLog";
 
@@ -21,4 +21,5 @@ public class Logger {
     public static void d(String sectag, String info) {
         Log.d(TAG, sectag + ":" + info);
     }
+
 }

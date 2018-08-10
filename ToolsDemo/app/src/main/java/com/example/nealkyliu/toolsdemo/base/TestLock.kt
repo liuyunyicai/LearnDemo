@@ -1,7 +1,5 @@
 package com.example.nealkyliu.toolsdemo.base
 
-import com.example.nealkyliu.toolsdemo.utils.Logger
-
 /**
  * @author: Created By nealkyliu
  * @date: 2018/7/13

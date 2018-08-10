@@ -1,12 +1,16 @@
 package com.example.nealkyliu.toolsdemo;
 
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.example.nealkyliu.toolsdemo.bus.LiveDataBus;
 import com.example.nealkyliu.toolsdemo.bussiness.config.AppConfigCenter;
 import com.example.nealkyliu.toolsdemo.bussiness.test.job.TestExecutor;
 import com.example.nealkyliu.toolsdemo.lifecycle.LifeCycleActivity;
@@ -15,6 +19,8 @@ import com.example.nealkyliu.toolsdemo.livedata.activity.TestNameActivity;
 import com.example.nealkyliu.toolsdemo.livedata.fragment.NameFragment1;
 import com.example.nealkyliu.toolsdemo.livedata.fragment.NameFragment2;
 import com.example.nealkyliu.toolsdemo.livedata.fragment.NameFragment3;
+import com.example.nealkyliu.toolsdemo.recyclerview.settings.WhiteListSelectActivity;
+import com.example.nealkyliu.toolsdemo.utils.DebugLogger;
 
 public class MainActivity extends AbsDemoActivity {
     private Button mText;
@@ -22,6 +28,8 @@ public class MainActivity extends AbsDemoActivity {
     private Button mGetAppSettingValueBt;
     private Button mSaveAppSettingBt;
     boolean mSwitched = false;
+
+    TextView mTv;
 
     private NameFragment1 mNameFragment1 = new NameFragment1();
     private NameFragment2 mNameFragment2 = new NameFragment2();
@@ -48,11 +56,15 @@ public class MainActivity extends AbsDemoActivity {
         AppConfigCenter.init(this);
 
         TestExecutor.executeTest();
-         new Thread(new Runnable() {
-             @Override
-             public void run() {
-             }
-         }).start();
+
+//        LiveDataBus.get().getChannel("key_test", Boolean.class)
+//                .observe(this, new Observer<Boolean>() {
+//                    @Override
+//                    public void onChanged(@Nullable Boolean aBoolean) {
+//                        DebugLogger.d("LiveDataBus", aBoolean);
+//                    }
+//                });
+
     }
 
     @Override
@@ -75,9 +87,12 @@ public class MainActivity extends AbsDemoActivity {
 
         switch (v.getId()) {
             case R.id.mText:
-                Fragment toSwitchFragment = mSwitched ? mNameFragment2 : mNameFragment1;
-                mSwitched = !mSwitched;
-                resumeFragment(R.id.fragment_container, toSwitchFragment);
+//                Fragment toSwitchFragment = mSwitched ? mNameFragment2 : mNameFragment1;
+//                mSwitched = !mSwitched;
+//                resumeFragment(R.id.fragment_container, toSwitchFragment);
+
+                startActivity(new Intent(this, WhiteListSelectActivity.class));
+
                 break;
             case R.id.mGoLifeCycle:
                 startActivity(new Intent(this, LifeCycleActivity.class));

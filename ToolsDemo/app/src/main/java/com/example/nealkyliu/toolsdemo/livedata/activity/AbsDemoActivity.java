@@ -14,7 +14,7 @@ import com.example.nealkyliu.toolsdemo.R;
 import com.example.nealkyliu.toolsdemo.livedata.ExtendedViewModelProviders;
 import com.example.nealkyliu.toolsdemo.livedata.demo.ExtendedNameBean;
 import com.example.nealkyliu.toolsdemo.livedata.demo.NameViewModel;
-import com.example.nealkyliu.toolsdemo.utils.Logger;
+import com.example.nealkyliu.toolsdemo.utils.LogUtils;
 
 /**
  * Created by nealkyliu on 2018/6/25.
@@ -59,7 +59,7 @@ public abstract class AbsDemoActivity extends AppCompatActivity implements View.
             @Override
             public void onChanged(@Nullable final ExtendedNameBean newName) {
                 // Update the UI, in this case, a TextView.
-                Logger.d(this, "onChanged " + newName);
+                LogUtils.d(this, "onChanged " + newName);
                 if (null != newName) {
                     mNameText.setText(getActivityText() + newName.toString());
                 }

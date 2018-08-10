@@ -1,7 +1,6 @@
 package com.example.nealkyliu.toolsdemo.kotlin
 
-import com.example.nealkyliu.toolsdemo.utils.Logger
-import javax.inject.Inject
+import com.example.nealkyliu.toolsdemo.utils.LogUtils
 import javax.inject.Singleton
 
 /**
@@ -12,6 +11,6 @@ class ClassC {
     fun test() {
         com.example.nealkyliu.toolsdemo.kotlin.ClassB().getUnit()
         ClassA.getStaticMethod()
-        Logger.d(this, "ClassC test")
+        LogUtils.d(this, "ClassC test")
     }
 }

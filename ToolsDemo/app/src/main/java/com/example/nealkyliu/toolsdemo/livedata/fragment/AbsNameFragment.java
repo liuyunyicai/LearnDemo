@@ -15,7 +15,7 @@ import com.example.nealkyliu.toolsdemo.R;
 import com.example.nealkyliu.toolsdemo.livedata.ExtendedViewModelProviders;
 import com.example.nealkyliu.toolsdemo.livedata.demo.NameBean;
 import com.example.nealkyliu.toolsdemo.livedata.demo.NameViewModel;
-import com.example.nealkyliu.toolsdemo.utils.Logger;
+import com.example.nealkyliu.toolsdemo.utils.LogUtils;
 import com.example.nealkyliu.toolsdemo.utils.glide.GlideUtils;
 
 /**
@@ -41,7 +41,7 @@ public abstract class AbsNameFragment extends Fragment implements View.OnClickLi
         mGlideImage = view.findViewById(R.id.mGlideImage);
         mTextView.setText(getInitText());
 
-        Logger.d(this, "onCreateView");
+        LogUtils.d(this, "onCreateView");
         initData();
 
         return view;
@@ -56,7 +56,7 @@ public abstract class AbsNameFragment extends Fragment implements View.OnClickLi
             @Override
             public void onChanged(@Nullable final NameBean newName) {
                 // Update the UI, in this case, a TextView.
-                Logger.d(this, "onChanged " + newName);
+                LogUtils.d(this, "onChanged " + newName);
                 if (null != newName) {
                     mTextView.setText(getInitText() + newName.toString());
                 }

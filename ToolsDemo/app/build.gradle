@@ -81,6 +81,8 @@ android {
         } // if you use the support libraries
         kapt deps.dagger.processor
 
+        implementation "com.google.code.gson:gson:2.8.2"
+
         implementation project(':account')
         implementation project(':module1')
         implementation project(':setting')
@@ -97,6 +99,15 @@ android {
 
         implementation "android.arch.persistence.room:runtime:1.1.1"
         kapt "android.arch.persistence.room:compiler:1.1.1"
+
+        compile 'com.android.support:recyclerview-v7:27.1.0'
+
+        // multitype
+        compile('me.drakeet.multitype:multitype:3.3.0', {
+            exclude group: 'com.android.support'
+        })
+
+        implementation 'com.google.firebase:firebase-messaging:17.1.0'
     }
     compileOptions {
         targetCompatibility 1.8

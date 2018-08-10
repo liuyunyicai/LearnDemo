@@ -6,13 +6,14 @@ import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.ViewModelStore;
 import android.arch.lifecycle.ViewModelStoreOwner;
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.example.nealkyliu.toolsdemo.bussiness.config.AppConfigCenter;
 import com.example.nealkyliu.toolsdemo.bussiness.test.classed.InjectSetClass;
 import com.example.nealkyliu.toolsdemo.bussiness.test.compontent.DaggerAppComponent;
 import com.example.nealkyliu.toolsdemo.room.AppDatabase;
-import com.example.nealkyliu.toolsdemo.utils.Logger;
+import com.example.nealkyliu.toolsdemo.utils.LogUtils;
 
 import java.util.Map;
 import java.util.Set;
@@ -33,6 +34,8 @@ public class LiveDataApplication extends DaggerApplication implements ViewModelS
     private static LiveDataApplication sInstance;
 
     private AppDatabase mAppSettingDatabase;
+
+    private static final Object sLock = new Object();
 
     public LiveDataApplication() {
         sInstance = this;
@@ -56,6 +59,24 @@ public class LiveDataApplication extends DaggerApplication implements ViewModelS
         return sInstance;
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+
+//        Intent intent = new Intent(this, MainViewActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
+//
+//        if (!AppUtils.isMainProcess(this)) {
+//            synchronized (sLock) {
+//                try {
+//                    sLock.wait();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+    }
 
     @Override
     public void onCreate() {
@@ -80,12 +101,12 @@ public class LiveDataApplication extends DaggerApplication implements ViewModelS
 
     public void test() {
         for (Map.Entry<String, InjectSetClass> entry : mStringMapClasses.entrySet()) {
-            Logger.d(entry.getKey());
+            LogUtils.d(entry.getKey());
             entry.getValue().test();
         }
 
         for (Map.Entry<Long, InjectSetClass> entry : mClassMapClasses.entrySet()) {
-            Logger.d(entry.getKey().toString());
+            LogUtils.d(entry.getKey().toString());
             entry.getValue().test();
         }
     }

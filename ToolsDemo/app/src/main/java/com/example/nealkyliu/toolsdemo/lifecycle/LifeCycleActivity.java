@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.nealkyliu.toolsdemo.R;
-import com.example.nealkyliu.toolsdemo.utils.Logger;
+import com.example.nealkyliu.toolsdemo.utils.LogUtils;
 
 /**
  * Created by nealkyliu on 2018/7/1.
@@ -19,12 +19,12 @@ public class LifeCycleActivity extends AppCompatActivity {
     public static class MyObserver implements LifecycleObserver {
         @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
         public void connectListener() {
-            Logger.d(this, "connectListener");
+            LogUtils.d(this, "connectListener");
         }
 
         @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
         public void disconnectListener() {
-            Logger.d(this, "disconnectListener");
+            LogUtils.d(this, "disconnectListener");
         }
     }
 

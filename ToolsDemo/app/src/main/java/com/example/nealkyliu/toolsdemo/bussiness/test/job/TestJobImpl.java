@@ -1,7 +1,9 @@
 package com.example.nealkyliu.toolsdemo.bussiness.test.job;
 
 import android.content.Context;
+import android.net.Uri;
 
+import com.example.nealkyliu.toolsdemo.BuildConfig;
 import com.example.nealkyliu.toolsdemo.LiveDataApplication;
 import com.example.nealkyliu.toolsdemo.bussiness.test.classed.IInjectClass;
 import com.example.nealkyliu.toolsdemo.bussiness.test.classed.InjectClass2;
@@ -10,7 +12,7 @@ import com.example.nealkyliu.toolsdemo.bussiness.test.compontent.DaggerInjectCom
 import com.example.nealkyliu.toolsdemo.bussiness.test.compontent.InjectComponent;
 import com.example.nealkyliu.toolsdemo.bussiness.test.compontent.InjectSubComponent;
 import com.example.nealkyliu.toolsdemo.bussiness.test.scope.ContextLife;
-import com.example.nealkyliu.toolsdemo.utils.Logger;
+import com.example.nealkyliu.toolsdemo.utils.LogUtils;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -55,7 +57,22 @@ public class TestJobImpl {
 //        InjectComponent component = DaggerInjectComponent.builder()
 //                .build();
 //        component.inject(this);
+
+        String tempUrl = getOneLinkReferrer();
+        tempUrl = "tempschema://temphost?" + tempUrl;
+        Uri uri = Uri.parse(tempUrl);
+        uri.getQueryParameter("group_id");
+        uri.getQueryParameter("schema");
     }
+
+    public static String getOneLinkReferrer() {
+        String testReferrer = "af_tranid=gbtaHnp_i6UtRCYIFKCguA&pid=sharing_install&af_sub2=6581263215244607754&c=sys&schema=snssdk" +
+                ":\\/\\/detail?group_id=6581263215244607754&item_id=6581263202875605509&campaign_group_id=6581263215244607754&app_launch_by=Share+Page+Link";
+        return testReferrer;
+    }
+
+
+
 //
     public void testMain() {
         InjectComponent component = DaggerInjectComponent.builder().injectSubComponent(new InjectSubComponent() {
@@ -65,7 +82,7 @@ public class TestJobImpl {
             }
         }).build();
         component.inject(this);
-        Logger.d(this, "testMain isSame == " + (component.getInjectClass() == component.getInjectClass()));
+        LogUtils.d(this, "testMain isSame == " + (component.getInjectClass() == component.getInjectClass()));
 
 //        mClass1.test();
 //        mClass12.test();

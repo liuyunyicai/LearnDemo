@@ -2,7 +2,7 @@ package com.example.nealkyliu.toolsdemo.worker;
 
 import android.support.annotation.NonNull;
 
-import com.example.nealkyliu.toolsdemo.utils.Logger;
+import com.example.nealkyliu.toolsdemo.utils.LogUtils;
 
 import androidx.work.Worker;
 
@@ -16,7 +16,7 @@ public class CleanUpWorker extends Worker{
     @NonNull
     @Override
     public Result doWork() {
-        Logger.d(TAG, "doWork");
+        LogUtils.d(TAG, "doWork");
         return Result.SUCCESS;
     }
 }

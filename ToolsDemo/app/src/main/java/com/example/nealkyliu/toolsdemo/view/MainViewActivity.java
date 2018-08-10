@@ -1,9 +1,11 @@
 package com.example.nealkyliu.toolsdemo.view;
 
-import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import com.example.nealkyliu.toolsdemo.R;
 import com.example.nealkyliu.toolsdemo.livedata.activity.AbsActivity;
+import com.example.nealkyliu.toolsdemo.utils.LogUtils;
 
 /**
  * @author: Created By nealkyliu
@@ -11,8 +13,14 @@ import com.example.nealkyliu.toolsdemo.livedata.activity.AbsActivity;
  **/
 public class MainViewActivity extends AbsActivity {
     @Override
-    protected void initView() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+        LogUtils.d("MainViewActivity", "onCreate");
+    }
+
+    @Override
+    protected void initView() {
     }
 
     @Override

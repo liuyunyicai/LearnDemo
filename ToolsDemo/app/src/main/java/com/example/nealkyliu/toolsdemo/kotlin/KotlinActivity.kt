@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.example.nealkyliu.toolsdemo.R
-import com.example.nealkyliu.toolsdemo.utils.Logger
+import com.example.nealkyliu.toolsdemo.utils.LogUtils
 import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.android.UI
 //import kotlinx.android.synthetic.main.activity_lifecycle.*
 //import kotlinx.android.synthetic.main.layout_button_abs.*
 import java.util.*
-import kotlin.coroutines.experimental.CoroutineContext
 
 /**
  * Created by nealkyliu on 2018/7/1.
@@ -38,22 +37,22 @@ open class KotlinActivity : AppCompatActivity(), View.OnClickListener {
             var job2 = getAsyncJob("job2")
             var job3 = getAsyncJob2(tag = "job3", parent = job2)
 
-            Logger.d("UI step0")
+            LogUtils.d("UI step0")
 //            job3.await()
-            Logger.d("UI step1")
+            LogUtils.d("UI step1")
 //            job1.await()
-            Logger.d("UI step2")
+            LogUtils.d("UI step2")
 //            job2.await()
-            Logger.d("UI step3")
+            LogUtils.d("UI step3")
 
 
         }
 
         launch(UI) {
             var job4 = getAsyncJob("Job4")
-            Logger.d("UI2 step0")
+            LogUtils.d("UI2 step0")
             job4.await()
-            Logger.d("UI2 step1")
+            LogUtils.d("UI2 step1")
         }
 
         getLocale(null) {
@@ -97,15 +96,15 @@ open class KotlinActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun getAsyncJob(tag : String) = async() {
-        Logger.d("async Job $tag start")
+        LogUtils.d("async Job $tag start")
         Thread.sleep(1000)
-        Logger.d("async Job $tag End")
+        LogUtils.d("async Job $tag End")
     }
 
     private fun getAsyncJob2(tag : String, parent : Job ?= null) = async(parent = parent) {
-        Logger.d("async Job $tag start")
+        LogUtils.d("async Job $tag start")
         Thread.sleep(5000)
-        Logger.d("async Job $tag End")
+        LogUtils.d("async Job $tag End")
     }
 
     fun getLocale(language: String?, block: suspend CoroutineScope.() -> Unit) = {
