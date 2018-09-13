@@ -8,13 +8,18 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/account" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/module1" />
-            <option value="$PROJECT_DIR$/module2" />
-            <option value="$PROJECT_DIR$/module3" />
-            <option value="$PROJECT_DIR$/network" />
-            <option value="$PROJECT_DIR$/setting" />
+            <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/business" />
+            <option value="$PROJECT_DIR$/business/account" />
+            <option value="$PROJECT_DIR$/business/app" />
+            <option value="$PROJECT_DIR$/business/articlebase" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/common/module1" />
+            <option value="$PROJECT_DIR$/common/module2" />
+            <option value="$PROJECT_DIR$/common/module3" />
+            <option value="$PROJECT_DIR$/common/network" />
+            <option value="$PROJECT_DIR$/common/setting" />
+            <option value="$PROJECT_DIR$/common/utils" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

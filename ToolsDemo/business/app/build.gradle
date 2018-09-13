@@ -1,0 +1,183 @@
+apply plugin: 'tp-module'
+
+apply plugin: 'com.android.application'
+apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+def containModules = []
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.example.nealkyliu.toolsdemo"
+        minSdkVersion 24
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ,
+                              eventBusIndex : 'com.example.nealkyliu.toolsdemo.bus.eventbus.MyEventBusIndex' ]
+            }
+        }
+
+    }
+
+    flavorDimensions "version"
+    productFlavors {
+        huhu1111 {
+            dimension "version"
+            manifestPlaceholders = ["main_activity_name" : "com.example.nealkyliu.toolsdemo.MainActivity",
+                                    "standby_activity_name" : "com.example.nealkyliu.toolsdemo.kotlin.KotlinActivity"]
+        }
+
+        huhu1112 {
+            dimension "version"
+            manifestPlaceholders = ["main_activity_name" : "com.example.nealkyliu.toolsdemo.kotlin.KotlinActivity",
+                                    "standby_activity_name" : "com.example.nealkyliu.toolsdemo.MainActivity"]
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+
+    sourceSets {
+        main {
+            res.srcDirs += ['src/hahah/res']
+        }
+
+        huhu1111 {
+            containModules += ["feed", "follow", "detail"]
+            java.srcDirs += ['src/hahah/java']
+            res.srcDirs += ['src/main/res-dirs/haha-res', 'src/skins/venus/res']
+            println("*************** sourceSets Config")
+        }
+
+        huhu1112 {
+            java.srcDirs += ['src/hahah/java']
+            res.srcDirs += ['src/main/res-dirs/haha-res']
+
+        }
+    }
+
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+        implementation 'com.android.support:appcompat-v7:27.1.0'
+        implementation 'com.android.support:support-annotations:27.1.0'
+
+        implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+
+        def work_version = "1.0.0-alpha03"
+        implementation "android.arch.work:work-runtime:$work_version" // use -ktx for Kotlin
+        implementation "android.arch.work:work-firebase:$work_version"
+
+        def lifecycle_version = "1.1.1"
+        // ViewModel and LiveData
+        implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+
+        // glide
+        implementation "com.github.bumptech.glide:glide:3.7.0"
+
+        // dagger
+        api deps.dagger.core
+        kapt deps.dagger.compiler
+        api deps.dagger.android
+        api(deps.dagger.support) {
+            exclude group: 'com.android.support'
+        } // if you use the support libraries
+        kapt deps.dagger.processor
+
+        implementation "com.google.code.gson:gson:2.8.2"
+
+        implementation project(':business:account')
+        implementation project(':common:module1')
+        implementation project(':common:setting')
+        annotationProcessor project(':common:setting')
+        implementation project(':common:module3')
+
+
+        implementation deps.kotlin.core
+        implementation deps.kotlin.coroutines
+        implementation deps.kotlin.ktx
+        implementation deps.kotlin.coroutines_android
+
+        implementation project(':common:network')
+
+        implementation "android.arch.persistence.room:runtime:1.1.1"
+        kapt "android.arch.persistence.room:compiler:1.1.1"
+
+        compile 'com.android.support:recyclerview-v7:27.1.0'
+
+        // multitype
+        compile('me.drakeet.multitype:multitype:3.3.0', {
+            exclude group: 'com.android.support'
+        })
+
+        // Paging
+        def paging_version = "1.0.0"
+        implementation "android.arch.paging:runtime:$paging_version"
+
+        // RxJava 1.0
+        implementation "io.reactivex:rxjava:1.2.2"
+        implementation "io.reactivex:rxandroid:1.1.0"
+        implementation "com.artemzin.rxjava:proguard-rules:1.2.2.0"
+
+        // eventBus
+        implementation 'org.greenrobot:eventbus:3.1.1'
+        annotationProcessor 'org.greenrobot:eventbus-annotation-processor:3.0.1'
+
+
+        implementation project(':business:articlebase')
+
+        // RxBus
+//        implementation 'com.github.anadea:rxbus:1.0.1'
+
+        // ARouter
+        implementation deps.arouter.core
+        kapt deps.arouter.compiler
+
+        api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+        implementation 'org.apache.httpcomponents:httpclient:4.2.6'
+
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+}
+
+
+tpinModules {
+//    include ":feed"
+//    include ":detail"
+//    include ":follow"
+//    mainPinModule ":main"
+    containModules.each {
+        include it
+    }
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+
+}

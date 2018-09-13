@@ -3,13 +3,18 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ToolsDemo.iml" filepath="$PROJECT_DIR$/ToolsDemo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/account/account.iml" filepath="$PROJECT_DIR$/account/account.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/module1/module1.iml" filepath="$PROJECT_DIR$/module1/module1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/module2/module2.iml" filepath="$PROJECT_DIR$/module2/module2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/module3/module3.iml" filepath="$PROJECT_DIR$/module3/module3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/network/network.iml" filepath="$PROJECT_DIR$/network/network.iml" />
-      <module fileurl="file://$PROJECT_DIR$/setting/setting.iml" filepath="$PROJECT_DIR$/setting/setting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/business/account/account.iml" filepath="$PROJECT_DIR$/business/account/account.iml" />
+      <module fileurl="file://$PROJECT_DIR$/business/app/app.iml" filepath="$PROJECT_DIR$/business/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/business/articlebase/articlebase.iml" filepath="$PROJECT_DIR$/business/articlebase/articlebase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/buildSrc/buildSrc.iml" filepath="$PROJECT_DIR$/buildSrc/buildSrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/business/business.iml" filepath="$PROJECT_DIR$/business/business.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/module1/module1.iml" filepath="$PROJECT_DIR$/common/module1/module1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/module2/module2.iml" filepath="$PROJECT_DIR$/common/module2/module2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/module3/module3.iml" filepath="$PROJECT_DIR$/common/module3/module3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/network/network.iml" filepath="$PROJECT_DIR$/common/network/network.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/setting/setting.iml" filepath="$PROJECT_DIR$/common/setting/setting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/utils/utils.iml" filepath="$PROJECT_DIR$/common/utils/utils.iml" />
     </modules>
   </component>
 </project>

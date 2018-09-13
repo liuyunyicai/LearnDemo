@@ -15,6 +15,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.alibaba:arouter-register:1.0.2'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -25,8 +26,13 @@ allprojects {
         jcenter()
         google()
     }
+
+    beforeEvaluate { projects ->
+        println "beforeEvaluate task to $project"
+    }
+
     afterEvaluate { project ->
-        println "Adding test task to $project"
+        println "afterEvaluate task to $project"
     }
 }
 
@@ -50,5 +56,9 @@ ext.deps = [
                 'coroutines': 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.20',
                 'ktx': 'androidx.core:core-ktx:0.2',
                 'coroutines_android': "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"
+        ],
+        'arouter': [
+                'core': 'com.alibaba:arouter-api:1.3.1',
+                'compiler': 'com.alibaba:arouter-compiler:1.1.4'
         ]
 ]
