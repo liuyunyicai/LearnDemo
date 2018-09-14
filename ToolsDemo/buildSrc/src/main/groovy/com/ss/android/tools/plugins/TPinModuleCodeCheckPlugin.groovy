@@ -15,7 +15,7 @@ class TPinModuleCodeCheckPlugin implements Plugin<Project> {
         this.project = project
 
         project.afterEvaluate {
-            pinModuleReferenceMap = TPinModulePlugin.pinModuleReferenceMap
+            pinModuleReferenceMap = TPinModuleTestPlugin.pinModuleReferenceMap
 
             def taskNamePrefix
             TestedExtension extension = (TestedExtension) project.extensions.getByName("android")

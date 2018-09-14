@@ -1,0 +1,14 @@
+
+def name = "dfdfsdf"
+
+dependencies {
+//    implementation pinModule(":feed")
+}
+
+tpinConfig {
+
+    sourceSet {
+        java.srcDirs += ['src/hahah/java']
+    }
+
+}

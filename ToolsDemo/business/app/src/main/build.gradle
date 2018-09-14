@@ -1,0 +1,20 @@
+tpinConfig {
+
+
+    sourceSet {
+        java.srcDirs += ['src/hahah/java']
+    }
+
+    testSourceSets {
+
+        main {
+
+        }
+
+        follow {
+
+        }
+
+    }
+
+}

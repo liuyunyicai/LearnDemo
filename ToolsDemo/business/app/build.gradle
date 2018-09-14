@@ -48,20 +48,20 @@ android {
     }
 
 
-
     sourceSets {
         main {
             res.srcDirs += ['src/hahah/res']
         }
 
         huhu1111 {
-            containModules += ["feed", "follow", "detail"]
+            containModules += [":main:module:feed", ":main:module:follow"]
             java.srcDirs += ['src/hahah/java']
             res.srcDirs += ['src/main/res-dirs/haha-res', 'src/skins/venus/res']
             println("*************** sourceSets Config")
         }
 
         huhu1112 {
+            containModules += [":main:module:feed"]
             java.srcDirs += ['src/hahah/java']
             res.srcDirs += ['src/main/res-dirs/haha-res']
 
@@ -171,9 +171,13 @@ tpinModules {
 //    include ":detail"
 //    include ":follow"
 //    mainPinModule ":main"
+
     containModules.each {
         include it
     }
+
+    includemain("main", "/src/main")
+
 }
 repositories {
     mavenCentral()

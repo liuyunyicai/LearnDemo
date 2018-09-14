@@ -1,5 +1,6 @@
 package com.ss.android.tools.plugins.core
 
+import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 
