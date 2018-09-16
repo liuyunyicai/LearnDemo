@@ -1,9 +1,10 @@
 package com.ss.android.tools.plugins.tpin.global
 
 import com.android.build.gradle.BaseExtension
-import com.ss.android.tools.plugins.tpin.extension.ITPinExtension
-import com.ss.android.tools.plugins.tpin.extension.ITPinModuleConfigExtension
-import com.ss.android.tools.plugins.tpin.extension.ITPinModuleExtension
+import com.ss.android.tools.plugins.tpin.extension.api.ITPinExtension
+import com.ss.android.tools.plugins.tpin.extension.api.ITPinModuleConfigExtension
+import com.ss.android.tools.plugins.tpin.extension.api.ITPinModuleConfig
+import com.ss.android.tools.plugins.tpin.extension.api.ITPinModuleWithFlavorExtension
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import org.gradle.api.Project
 
@@ -43,8 +44,8 @@ class TPinModuleEnvironmentImpl extends TPinModuleBaseEnvironment{
     /**
      * 构建tpinModule DSL
      **/
-    ITPinModuleExtension getPinModuleExtension() {
-        return getExtension(ITPinModuleExtension.NAME)
+    ITPinModuleWithFlavorExtension getPinModuleExtension() {
+        return getExtension(ITPinModuleWithFlavorExtension.NAME)
     }
 
     /**

@@ -27,7 +27,7 @@ class TPinModuleCodeCheck {
         projectPath = project.projectDir.absolutePath
         buildDir = new File(project.projectDir, "build")
 
-        pinModuleExtension = project.extensions.getByName("tpinModules")
+//        pinModuleExtension = project.extensions.getByName("tpinModules")
 
         microManifest = getMicroManifest()
     }

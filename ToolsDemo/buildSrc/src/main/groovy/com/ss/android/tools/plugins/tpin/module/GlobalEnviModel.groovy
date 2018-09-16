@@ -14,4 +14,9 @@ class GlobalEnviModel {
      * 生成RFile文件位置
      **/
     String mRFileDir
+
+    GlobalEnviModel(String rootDir) {
+        mMainfestDir = rootDir + "/AndroidManifest.xml"
+        mRFileDir = rootDir
+    }
 }

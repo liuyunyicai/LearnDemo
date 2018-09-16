@@ -22,26 +22,71 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
     // 配置module的sourceset等属性
     AndroidSourceSet mAndroidSourceSet
 
-
     /**
-     * 构建一个PinModule基础类
+     * 包含该module的Flavor
      **/
-    static TPinModuleModel buildPinModule(Project project, String name, String rootDir = null, boolean isMain = false) {
-        if (null == rootDir) {
+    Set<String> mFlavors = new HashSet<>()
+
+    private TPinModuleModel() {
+
+    }
+
+    private TPinModuleModel(ContentInfo info) {
+        if (null == info.mRootDir) {
             // 生成默认rootDir
-            rootDir = getRootDir(project, name, rootDir, isMain)
+            info.mRootDir = getRootDir(info.mProject, info.mName, info.mRootDir, info.isMainModule)
         }
-        TPinUtils.logInfo("getRootDir", rootDir)
+        TPinUtils.logInfo("getRootDir", info.mRootDir)
 
-        TPinModuleModel module = new TPinModuleModel()
-
-        module.isMainModule = isMain
-        module.mName = name
-        module.mRootDir = rootDir
+        isMainModule = info.isMainModule
+        mName = info.mName
+        mRootDir = info.mRootDir
         // TODO: publishPackage暂不知是什么意思，getPackageConfigurationName会用到；这里只是用AndroidSourceSet的srcDir
-        module.mAndroidSourceSet = new DefaultTPinModuleAndroidSourceSet(name, project, false, rootDir)
-        TPinUtils.logInfo("buildPinModule", name, module.mAndroidSourceSet.java.srcDirs)
-        return module
+        mAndroidSourceSet = new DefaultTPinModuleAndroidSourceSet(info.mName, info.mProject, false, info.mRootDir)
+        addFlavor(info.mFlavor)
+        TPinUtils.logInfo("buildPinModule", mName, mAndroidSourceSet.java.srcDirs)
+    }
+
+
+    static class Builder {
+        ContentInfo info = new ContentInfo()
+
+        Builder project(Project project) {
+            info.mProject = project
+            return this
+        }
+
+        Builder mainModule(boolean isMainModule) {
+            info.isMainModule = isMainModule
+            return this
+        }
+
+        Builder name(String name) {
+            info.mName = name
+            return this
+        }
+
+        Builder rootDir(String rootDir) {
+            info.mRootDir = rootDir
+            return this
+        }
+
+        Builder flavor(String flavor) {
+            info.mFlavor = flavor
+            return this
+        }
+
+        TPinModuleModel build() {
+            return new TPinModuleModel(info)
+        }
+    }
+
+    static class ContentInfo {
+        Project mProject
+        boolean isMainModule
+        String mName
+        String mRootDir
+        String mFlavor
     }
 
     @Override
@@ -55,6 +100,7 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
         }
         return 1
     }
+
 
     static class DefaultTPinModuleAndroidSourceSet extends DefaultAndroidSourceSet{
 
@@ -79,11 +125,18 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
         return convertNameToPath(project, name)
     }
 
+    /**
+     * 添加包含该module的flavor
+     **/
+    void addFlavor(String flavor) {
+        mFlavors.add(flavor)
+    }
+
 
     private static String convertNameToPath(Project project, String name) {
         String[] pathElements = removeTrailingColon(name).split(":")
         int pathElementsLen = pathElements.size()
-        String relativePath = "src/"
+        String relativePath = "/src/"
         for (int j = 0; j < pathElementsLen; j++) {
             relativePath += pathElements[j] + "/"
         }

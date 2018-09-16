@@ -1,7 +1,12 @@
 package com.ss.android.tools.plugins.tpin.global
 
 import com.android.build.gradle.api.AndroidSourceDirectorySet
-import com.ss.android.tools.plugins.tpin.extension.ITPinExtension
+import com.ss.android.tools.plugins.tpin.extension.api.ITPinExtension
+import com.ss.android.tools.plugins.tpin.global.executors.ApplyBuildExecutor
+import com.ss.android.tools.plugins.tpin.global.executors.GenerateRExecutor
+import com.ss.android.tools.plugins.tpin.global.executors.MergeManifestExecutor
+import com.ss.android.tools.plugins.tpin.global.executors.ModuleManagerExecutor
+import com.ss.android.tools.plugins.tpin.global.executors.SetSourceSetExecutor
 import com.ss.android.tools.plugins.tpin.module.GlobalEnviModel
 import com.ss.android.tools.plugins.tpin.module.TPinModuleModel
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
@@ -13,20 +18,14 @@ import org.gradle.api.Project
 class TPinModuleBaseEnvironment {
     Map<String, ITPinExtension> mExtensionMap = new HashMap<>()
 
-    GlobalEnviModel mGlobalEnviModel
-
-    TPinModuleModel mMainPinModule
-
-    Map<String, TPinModuleModel> mPinModulesMap = new HashMap<>()
-
     Project mProject
 
     // 各种基础Task
     ModuleManagerExecutor mModuleManagerExecutor
-    ApplyBuildExecutor    mApplyBuildExecutor
-    GenerateRExecutor     mGenerateRExecutor
+    ApplyBuildExecutor mApplyBuildExecutor
+    GenerateRExecutor mGenerateRExecutor
     MergeManifestExecutor mMergeManifestExecutor
-    SetSourceSetExecutor  mSetSourceSetExecutor
+    SetSourceSetExecutor mSetSourceSetExecutor
 
 
     TPinModuleBaseEnvironment(Project project) {
@@ -44,8 +43,8 @@ class TPinModuleBaseEnvironment {
     }
 
 
-    void includeModule(String name, String rootDir = null, boolean isMain = false) {
-        mModuleManagerExecutor.includeModule(name, rootDir, isMain)
+    void includeModule(String name, String flavor = "main", String rootDir = null, boolean isMain = false) {
+        mModuleManagerExecutor.includeModule(name, flavor, rootDir, isMain)
     }
 
 
@@ -65,6 +64,7 @@ class TPinModuleBaseEnvironment {
 
     void setSourceSet() {
         TPinUtils.logInfo("setSourceSet")
+        TPinUtils.logInfo("setSourceSet 2" + mModuleManagerExecutor.pinModules)
         mSetSourceSetExecutor.includeIntoSourceSet(mProject, mModuleManagerExecutor.pinModules)
     }
 

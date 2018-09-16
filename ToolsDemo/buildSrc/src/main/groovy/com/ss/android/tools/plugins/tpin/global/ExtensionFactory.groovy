@@ -1,10 +1,10 @@
 package com.ss.android.tools.plugins.tpin.global
 
 import com.android.build.gradle.BaseExtension
-import com.ss.android.tools.plugins.tpin.extension.ITPinModuleConfigExtension
-import com.ss.android.tools.plugins.tpin.extension.ITPinModuleExtension
+import com.ss.android.tools.plugins.tpin.extension.TPinModuleWithFlavorExtensionImpl
+import com.ss.android.tools.plugins.tpin.extension.api.ITPinModuleConfigExtension
+import com.ss.android.tools.plugins.tpin.extension.api.ITPinModuleWithFlavorExtension
 import com.ss.android.tools.plugins.tpin.extension.TPinModuleConfigExtensionImpl
-import com.ss.android.tools.plugins.tpin.extension.TPinModuleExtensionImpl
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import org.gradle.api.Project
 
@@ -14,9 +14,9 @@ class ExtensionFactory {
         Class<?> api
         Class<?> impl
         switch (name) {
-            case ITPinModuleExtension.NAME:
-                api = ITPinModuleExtension.class
-                impl = TPinModuleExtensionImpl.class
+            case ITPinModuleWithFlavorExtension.NAME:
+                api = ITPinModuleWithFlavorExtension.class
+                impl = TPinModuleWithFlavorExtensionImpl.class
                 break
             case ITPinModuleConfigExtension.NAME:
                 api = ITPinModuleConfigExtension.class

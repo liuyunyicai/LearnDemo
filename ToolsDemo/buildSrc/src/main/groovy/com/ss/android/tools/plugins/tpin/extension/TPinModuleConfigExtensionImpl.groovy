@@ -4,6 +4,7 @@ import com.android.build.gradle.api.AndroidSourceDirectorySet
 import com.android.build.gradle.api.AndroidSourceSet
 import com.android.build.gradle.internal.api.DefaultAndroidSourceSet
 import com.android.build.gradle.internal.dsl.AndroidSourceSetFactory
+import com.ss.android.tools.plugins.tpin.extension.api.ITPinModuleConfigExtension
 import com.ss.android.tools.plugins.tpin.global.TPinModuleEnvironment
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import org.gradle.api.Action
@@ -22,8 +23,6 @@ class TPinModuleConfigExtensionImpl extends BaseTPinExtensionImpl implements ITP
 
     @Override
     void sourceSet(Action<AndroidSourceSet> action) {
-        TPinUtils.logInfo("******* ", TPinModuleEnvironment)
-
         action.execute(new SourceSetImpl("count", mProject, false))
     }
 
@@ -40,7 +39,6 @@ class TPinModuleConfigExtensionImpl extends BaseTPinExtensionImpl implements ITP
 
         @Override
         AndroidSourceDirectorySet getJava() {
-            TPinUtils.logInfo("TPinModuleConfigExtensionImpl", "sourceSet Name ")
             return super.getJava()
         }
     }

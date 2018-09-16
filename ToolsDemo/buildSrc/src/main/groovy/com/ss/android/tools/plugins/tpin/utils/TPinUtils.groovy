@@ -13,6 +13,8 @@ class TPinUtils {
         return new File(project.projectDir.absolutePath + rootDir, relativePath)
     }
 
+
+
     static def logInfo = { Object... infos ->
         String info = ""
         infos.each {

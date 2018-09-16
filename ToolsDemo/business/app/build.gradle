@@ -167,21 +167,24 @@ android {
 
 
 tpinModules {
-//    include ":feed"
-//    include ":detail"
-//    include ":follow"
-//    mainPinModule ":main"
 
-    containModules.each {
-        include it
+    config {
+        main {
+            include(":main:module:feed")
+
+            includemain("main", "/src/main")
+        }
+
     }
-
-    includemain("main", "/src/main")
 
 }
 repositories {
     mavenCentral()
 }
 dependencies {
+
+}
+
+ext {
 
 }

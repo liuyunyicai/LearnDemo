@@ -1,5 +1,7 @@
 package com.ss.android.tools.plugins.tpin.extension
 
+import com.ss.android.tools.plugins.tpin.extension.api.ITPinModuleGlobalConfig
+
 
 class TPinModuleGlobalConfig implements ITPinModuleGlobalConfig {
 
