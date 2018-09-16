@@ -7,9 +7,11 @@ import com.ss.android.tools.plugins.tpin.global.executors.GenerateRExecutor
 import com.ss.android.tools.plugins.tpin.global.executors.MergeManifestExecutor
 import com.ss.android.tools.plugins.tpin.global.executors.ModuleManagerExecutor
 import com.ss.android.tools.plugins.tpin.global.executors.SetSourceSetExecutor
+import com.ss.android.tools.plugins.tpin.global.executors.WriteCodeCheckFileExecutor
 import com.ss.android.tools.plugins.tpin.module.GlobalEnviModel
 import com.ss.android.tools.plugins.tpin.module.TPinModuleModel
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
+import com.sun.istack.Nullable
 import org.gradle.api.Project
 
 /**
@@ -26,6 +28,7 @@ class TPinModuleBaseEnvironment {
     GenerateRExecutor mGenerateRExecutor
     MergeManifestExecutor mMergeManifestExecutor
     SetSourceSetExecutor mSetSourceSetExecutor
+    WriteCodeCheckFileExecutor mWriteCodeCheckFileExecutor
 
 
     TPinModuleBaseEnvironment(Project project) {
@@ -35,6 +38,7 @@ class TPinModuleBaseEnvironment {
         mGenerateRExecutor     = new GenerateRExecutor(project)
         mMergeManifestExecutor = new MergeManifestExecutor(project)
         mSetSourceSetExecutor  = new SetSourceSetExecutor(project)
+        mWriteCodeCheckFileExecutor = new WriteCodeCheckFileExecutor(project)
     }
 
 
@@ -59,13 +63,13 @@ class TPinModuleBaseEnvironment {
      **/
     void clearSourceSet() {
         TPinUtils.logInfo("clearSourceSet")
-        mSetSourceSetExecutor.excludeFromSourceSet(mProject, mModuleManagerExecutor.pinModules)
+        mSetSourceSetExecutor.excludeFromSourceSet(mProject, pinModules)
     }
 
     void setSourceSet() {
         TPinUtils.logInfo("setSourceSet")
         TPinUtils.logInfo("setSourceSet 2" + mModuleManagerExecutor.pinModules)
-        mSetSourceSetExecutor.includeIntoSourceSet(mProject, mModuleManagerExecutor.pinModules)
+        mSetSourceSetExecutor.includeIntoSourceSet(mProject, pinModules)
     }
 
     /**
@@ -73,7 +77,7 @@ class TPinModuleBaseEnvironment {
      **/
     void applyModuleBuild() {
         TPinUtils.logInfo("applyModuleBuild")
-        mApplyBuildExecutor.execute(mModuleManagerExecutor.pinModules)
+        mApplyBuildExecutor.execute(pinModules)
     }
 
     /**
@@ -87,7 +91,23 @@ class TPinModuleBaseEnvironment {
      * merge manifest文件
      **/
     void mergeManifest() {
-        mMergeManifestExecutor.execute(mModuleManagerExecutor.mGlobalEnviModel, mModuleManagerExecutor.pinModules, mModuleManagerExecutor.mainModule)
+        mMergeManifestExecutor.execute(mModuleManagerExecutor.mGlobalEnviModel, pinModules, mainModule)
+    }
+
+    /***
+     * 生成code-check.xml
+     **/
+    void writeCodeCheckFile() {
+        mWriteCodeCheckFileExecutor.execute(mModuleManagerExecutor.mGlobalEnviModel, pinModules)
+    }
+
+    Iterator<TPinModuleModel> getPinModules() {
+        return mModuleManagerExecutor.pinModules
+    }
+
+    @Nullable
+    TPinModuleModel getMainModule() {
+        return mModuleManagerExecutor.mainModule
     }
 
     void setSourcesSet(AndroidSourceDirectorySet set, List<String> dirs) {

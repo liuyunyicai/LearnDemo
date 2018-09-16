@@ -16,7 +16,14 @@ class TPinUtils {
     }
 
     static File createFile(Project project, String path) {
-        return new File("$project.projectDir.absolutePath/$path")
+        return new File(getAbsolutePath(project, path))
+    }
+
+    static def getAbsolutePath(Project project, String path) {
+        if (path.charAt(0) != '/') {
+            path = "/$path"
+        }
+        "$project.projectDir.absolutePath$path"
     }
 
     static def logInfo = { Object... infos ->

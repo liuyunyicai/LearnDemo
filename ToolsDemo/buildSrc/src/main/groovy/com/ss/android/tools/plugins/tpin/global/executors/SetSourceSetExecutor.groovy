@@ -92,7 +92,7 @@ class SetSourceSetExecutor extends BaseExecutor{
         TPinUtils.logInfo("**** origin ", origin.srcDirs, "add ", add.srcDirs)
 
         add.srcDirs.each {
-            origin.srcDirs += "$mProject.projectDir/$it.absolutePath"
+            origin.srcDirs += TPinUtils.getAbsolutePath(mProject, it.absolutePath)
         }
 
 //        origin.srcDirs += add.srcDirs

@@ -17,8 +17,14 @@ class GlobalEnviModel {
      **/
     String mRFileDir
 
+    /**
+     * 生成code check位置
+     **/
+    String mCodeCheckDir
+
     GlobalEnviModel() {
         mMainfestDir = "/build/tpinModule/"
+        mCodeCheckDir= "/build/tpinModule/"
         mRFileDir = ""
     }
 }

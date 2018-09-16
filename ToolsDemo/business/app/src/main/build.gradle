@@ -5,16 +5,4 @@ tpinConfig {
         manifest.srcFile "/src/main/AndroidManifest.xml"
     }
 
-    testSourceSets {
-
-        main {
-
-        }
-
-        follow {
-
-        }
-
-    }
-
 }

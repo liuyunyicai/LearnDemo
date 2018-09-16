@@ -171,9 +171,18 @@ tpinModules {
 
     config {
         main {
-            include(":main:module:feed")
+            include("feed", "/src/main/module/feed")
 
             includemain("main", "/src/main")
+        }
+
+        huhu1111 {
+            include("detail", "/src/main/module/detail")
+            include("follow", "/src/main/module/follow")
+        }
+
+        huhu1112 {
+            include("follow", "/src/main/module/follow")
         }
 
     }

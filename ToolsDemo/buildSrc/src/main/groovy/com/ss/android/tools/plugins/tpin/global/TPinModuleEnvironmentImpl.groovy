@@ -43,6 +43,8 @@ class TPinModuleEnvironmentImpl extends TPinModuleBaseEnvironment{
             setSourceSet()
             // merge Manifest
             mergeManifest()
+            // 生成code check
+            writeCodeCheckFile()
         }
     }
 
