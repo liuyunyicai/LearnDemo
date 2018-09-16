@@ -1,3 +1,4 @@
+//apply plugin: 'tp-module-test'
 apply plugin: 'tp-module'
 
 apply plugin: 'com.android.application'
@@ -54,14 +55,14 @@ android {
         }
 
         huhu1111 {
-            containModules += [":main:module:feed", ":main:module:follow"]
+//            containModules += [":feed", ":follow"]
             java.srcDirs += ['src/hahah/java']
             res.srcDirs += ['src/main/res-dirs/haha-res', 'src/skins/venus/res']
             println("*************** sourceSets Config")
         }
 
         huhu1112 {
-            containModules += [":main:module:feed"]
+            containModules += [":feed"]
             java.srcDirs += ['src/hahah/java']
             res.srcDirs += ['src/main/res-dirs/haha-res']
 
@@ -176,8 +177,14 @@ tpinModules {
         }
 
     }
-
 }
+
+//tpinModulestest {
+//    containModules.each {
+//        include(it)
+//    }
+//}
+
 repositories {
     mavenCentral()
 }

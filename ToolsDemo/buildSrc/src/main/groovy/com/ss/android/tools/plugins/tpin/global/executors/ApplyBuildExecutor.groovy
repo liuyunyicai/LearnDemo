@@ -11,6 +11,8 @@ import org.gradle.api.Project
  * 执行module的build文件
  **/
 class ApplyBuildExecutor extends BaseExecutor{
+    TPinModuleModel mCurrentApplyModule
+
 
     ApplyBuildExecutor(Project project) {
         super(project)
@@ -20,6 +22,7 @@ class ApplyBuildExecutor extends BaseExecutor{
         modules.each {
             applyPinModuleBuild(it)
         }
+        mCurrentApplyModule = null
     }
 
     /**
@@ -32,6 +35,7 @@ class ApplyBuildExecutor extends BaseExecutor{
 
         if (pinModuleBuild.exists()) {
             TPinModuleEnvironment.getInstance(mProject).saveValue("myConfig", pinModule.mName)
+            mCurrentApplyModule = pinModule
             mProject.apply from: pinModuleBuild.absolutePath
         }
     }

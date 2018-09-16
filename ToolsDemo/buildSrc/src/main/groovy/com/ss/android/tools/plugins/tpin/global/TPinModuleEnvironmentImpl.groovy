@@ -5,8 +5,11 @@ import com.ss.android.tools.plugins.tpin.extension.api.ITPinExtension
 import com.ss.android.tools.plugins.tpin.extension.api.ITPinModuleConfigExtension
 import com.ss.android.tools.plugins.tpin.extension.api.ITPinModuleConfig
 import com.ss.android.tools.plugins.tpin.extension.api.ITPinModuleWithFlavorExtension
+import com.ss.android.tools.plugins.tpin.module.TPinModuleModel
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import org.gradle.api.Project
+
+import javax.annotation.Nullable
 
 /**
  * 用来管理当前build task中添加的modules； 以及便于日后的增量编译
@@ -34,10 +37,12 @@ class TPinModuleEnvironmentImpl extends TPinModuleBaseEnvironment{
     void initTasks() {
         mProject.afterEvaluate {
             TPinUtils.logInfo("afterEvaluate")
-            // 设置Task
-            setSourceSet()
             // apply Build
             applyModuleBuild()
+            // 设置Task
+            setSourceSet()
+            // merge Manifest
+            mergeManifest()
         }
     }
 
@@ -68,6 +73,14 @@ class TPinModuleEnvironmentImpl extends TPinModuleBaseEnvironment{
             mExtensionMap.put(name, extension)
         }
         return (T) extension
+    }
+
+    /**
+     * 当前执行build.gradle所在的module
+     **/
+    @Nullable
+    TPinModuleModel getCurrentApplyModule() {
+        return mApplyBuildExecutor.mCurrentApplyModule
     }
 
     void saveValue(String key, Object value) {

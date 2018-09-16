@@ -87,7 +87,7 @@ class TPinModuleBaseEnvironment {
      * merge manifest文件
      **/
     void mergeManifest() {
-
+        mMergeManifestExecutor.execute(mModuleManagerExecutor.mGlobalEnviModel, mModuleManagerExecutor.pinModules, mModuleManagerExecutor.mainModule)
     }
 
     void setSourcesSet(AndroidSourceDirectorySet set, List<String> dirs) {

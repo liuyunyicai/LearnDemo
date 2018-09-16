@@ -1,8 +1,7 @@
-package com.ss.android.tools.plugins
+package com.ss.android.tools.plugins.core
 
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.TestedExtension
-import com.ss.android.tools.plugins.core.TPinModuleCodeCheck
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

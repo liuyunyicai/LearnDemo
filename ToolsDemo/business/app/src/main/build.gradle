@@ -2,7 +2,7 @@ tpinConfig {
 
 
     sourceSet {
-        java.srcDirs += ['src/hahah/java']
+        manifest.srcFile "/src/main/AndroidManifest.xml"
     }
 
     testSourceSets {

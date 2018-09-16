@@ -17,7 +17,6 @@ class SetSourceSetExecutor extends BaseExecutor{
 
     SetSourceSetExecutor(Project project) {
         super(project)
-
     }
 
     /**
@@ -90,7 +89,13 @@ class SetSourceSetExecutor extends BaseExecutor{
     }
 
     void plusSourcesSet(AndroidSourceDirectorySet origin, AndroidSourceDirectorySet add) {
-        origin.srcDirs += add.srcDirs
+        TPinUtils.logInfo("**** origin ", origin.srcDirs, "add ", add.srcDirs)
+
+        add.srcDirs.each {
+            origin.srcDirs += "$mProject.projectDir/$it.absolutePath"
+        }
+
+//        origin.srcDirs += add.srcDirs
     }
 
     void minusSourcesSet(AndroidSourceDirectorySet origin, AndroidSourceDirectorySet minus) {

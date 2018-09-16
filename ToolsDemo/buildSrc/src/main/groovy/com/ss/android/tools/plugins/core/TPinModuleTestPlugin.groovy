@@ -1,4 +1,4 @@
-package com.ss.android.tools.plugins
+package com.ss.android.tools.plugins.core
 
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.api.AndroidSourceDirectorySet
@@ -54,7 +54,7 @@ class TPinModuleTestPlugin implements Plugin<Project> {
 
 
         // Create pinModule DSL
-        pinModuleExtension = project.extensions.create(TPinModuleExtension, "tpinModules", DefaultTPinModuleExtension, project)
+        pinModuleExtension = project.extensions.create(TPinModuleExtension, "tpinModulestest", DefaultTPinModuleExtension, project)
         checkMainPinModule()
 
         // 使用tpinModules DSL时会触发该回掉
@@ -175,6 +175,8 @@ class TPinModuleTestPlugin implements Plugin<Project> {
      **/
     def mergeMainAndroidManifest() {
         File mainManifestFile = new File(pinModuleExtension.mainPinModule.pinModuleDir, mainManifestPath)
+
+        TPinUtils.logInfo("&&&&&&&&&&&&&&", "mergeMainAndroidManifest", mainManifestFile.absolutePath)
         ManifestMerger2.MergeType mergeType = ManifestMerger2.MergeType.APPLICATION
         XmlDocument.Type documentType = XmlDocument.Type.MAIN
         ManifestMerger2.Invoker invoker = new ManifestMerger2.Invoker(mainManifestFile, logger, mergeType, documentType)
@@ -184,7 +186,7 @@ class TPinModuleTestPlugin implements Plugin<Project> {
             def microManifestFile = new File(it.pinModuleDir, moduleManifestPath)
             if (microManifestFile.exists()) {
                 invoker.addLibraryManifest(microManifestFile)
-                TPinUtils.logInfo("addLibraryManifest " + it.pinModuleDir)
+                TPinUtils.logInfo("&&&&&&&&&&&&&&& addLibraryManifest " + it.pinModuleDir, microManifestFile.absolutePath)
             }
         }
         def mergingReport = invoker.merge()

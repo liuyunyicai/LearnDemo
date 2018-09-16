@@ -4,6 +4,7 @@ import com.ss.android.tools.plugins.tpin.global.base.BaseExecutor
 import com.ss.android.tools.plugins.tpin.module.GlobalEnviModel
 import com.ss.android.tools.plugins.tpin.module.TPinModuleModel
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
+import com.sun.istack.Nullable
 import org.gradle.api.Project
 
 /**
@@ -119,6 +120,17 @@ class ModuleManagerExecutor extends BaseExecutor{
 
     Iterator<TPinModuleModel> getPinModules() {
         return mPinModulesSet.iterator()
+    }
+
+    @Nullable
+    TPinModuleModel getMainModule() {
+        def first = mPinModulesSet.first()
+
+        if (first.isMainModule) {
+            return first
+        }
+
+        return null
     }
 
     static class PSet<TPinModuleModel> extends TreeSet<TPinModuleModel> {

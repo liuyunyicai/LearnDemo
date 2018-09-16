@@ -20,7 +20,7 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
     String mRootDir
 
     // 配置module的sourceset等属性
-    AndroidSourceSet mAndroidSourceSet
+    DefaultTPinModuleAndroidSourceSet mAndroidSourceSet
 
     /**
      * 包含该module的Flavor
@@ -106,7 +106,11 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
 
         DefaultTPinModuleAndroidSourceSet(String name, Project project, boolean publishPackage, String rootDir) {
             super(name, project, publishPackage)
-            setRoot(rootDir + "/src/main/")
+            setRoot("$rootDir/src/main/")
+        }
+
+        String getMainfestSrcFilePath() {
+            return manifest.srcFile.absolutePath
         }
     }
 

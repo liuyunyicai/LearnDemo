@@ -1,5 +1,7 @@
 package com.ss.android.tools.plugins.tpin.module
 
+import org.gradle.api.Project
+
 /**
  * 环境变量配置
  **/
@@ -15,8 +17,8 @@ class GlobalEnviModel {
      **/
     String mRFileDir
 
-    GlobalEnviModel(String rootDir) {
-        mMainfestDir = rootDir + "/AndroidManifest.xml"
-        mRFileDir = rootDir
+    GlobalEnviModel() {
+        mMainfestDir = "/build/tpinModule/"
+        mRFileDir = ""
     }
 }
