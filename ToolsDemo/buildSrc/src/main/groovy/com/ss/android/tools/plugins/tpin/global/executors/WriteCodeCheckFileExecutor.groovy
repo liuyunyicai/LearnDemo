@@ -1,9 +1,10 @@
 package com.ss.android.tools.plugins.tpin.global.executors
 
 import com.android.build.gradle.api.AndroidSourceDirectorySet
-import com.ss.android.tools.plugins.tpin.global.base.BaseExecutor
-import com.ss.android.tools.plugins.tpin.module.GlobalEnviModel
-import com.ss.android.tools.plugins.tpin.module.TPinModuleModel
+import com.ss.android.tools.plugins.tpin.global.executors.base.BaseExecutor
+import com.ss.android.tools.plugins.tpin.global.executors.context.IExecutorContext
+import com.ss.android.tools.plugins.tpin.model.GlobalEnviModel
+import com.ss.android.tools.plugins.tpin.model.TPinModuleModel
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import org.gradle.api.Project
 import org.w3c.dom.Document
@@ -23,8 +24,9 @@ class WriteCodeCheckFileExecutor extends BaseExecutor {
         super(project)
     }
 
-    void execute(GlobalEnviModel enviModel, Iterator<TPinModuleModel> modules) {
-       writeFile(enviModel, getAllFlavorInfo(modules))
+    @Override
+    void execute(IExecutorContext context) {
+        writeFile(context.globalEnviModel, getAllFlavorInfo(context.pinModules))
     }
 
     def getAllFlavorInfo(Iterator<TPinModuleModel> modules) {
@@ -40,6 +42,7 @@ class WriteCodeCheckFileExecutor extends BaseExecutor {
                 list.add(module)
             }
         }
+
         map
     }
 
@@ -52,7 +55,6 @@ class WriteCodeCheckFileExecutor extends BaseExecutor {
             }
 
             def file = TPinUtils.createFile(mProject, "$xmlDir/$CODE_CHECK_FILE_NAME")
-            TPinUtils.logInfo("******* WriteCodeCheckFileExecutor", list, flavor, file.absolutePath)
             if (!file.exists()) {
                 file.createNewFile()
             }
@@ -61,6 +63,7 @@ class WriteCodeCheckFileExecutor extends BaseExecutor {
     }
 
     void save(File destFile, List<TPinModuleModel> modules) {
+        TPinUtils.logInfo("******* WriteCodeCheckFileExecutor", destFile.absolutePath)
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance()
         Document documentTemp = builderFactory.newDocumentBuilder().newDocument()
         Element pinModuleXmlTemp = documentTemp.createElement("tpin-module")

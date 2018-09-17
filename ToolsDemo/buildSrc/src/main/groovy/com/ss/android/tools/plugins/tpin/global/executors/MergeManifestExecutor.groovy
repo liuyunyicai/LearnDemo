@@ -5,9 +5,10 @@ import com.android.manifmerger.ManifestMerger2
 import com.android.manifmerger.MergingReport
 import com.android.manifmerger.XmlDocument
 import com.ss.android.tools.plugins.tpin.global.TPinModuleEnvironment
-import com.ss.android.tools.plugins.tpin.global.base.BaseExecutor
-import com.ss.android.tools.plugins.tpin.module.GlobalEnviModel
-import com.ss.android.tools.plugins.tpin.module.TPinModuleModel
+import com.ss.android.tools.plugins.tpin.global.executors.base.BaseExecutor
+import com.ss.android.tools.plugins.tpin.global.executors.context.IExecutorContext
+import com.ss.android.tools.plugins.tpin.model.GlobalEnviModel
+import com.ss.android.tools.plugins.tpin.model.TPinModuleModel
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import org.gradle.api.GradleException
 import org.gradle.api.Project
@@ -20,8 +21,9 @@ class MergeManifestExecutor extends BaseExecutor {
         super(project)
     }
 
-    void execute(GlobalEnviModel globalEnviModel, Iterator<TPinModuleModel> modules, TPinModuleModel mainModule) {
-        mergeMainAndroidManifest(globalEnviModel, modules, mainModule)
+    @Override
+    void execute(IExecutorContext context) {
+        mergeMainAndroidManifest(context.globalEnviModel, context.pinModules, context.mainModule)
     }
 
     /**

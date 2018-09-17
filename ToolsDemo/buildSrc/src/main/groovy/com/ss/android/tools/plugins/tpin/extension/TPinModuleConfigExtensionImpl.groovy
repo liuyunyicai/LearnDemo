@@ -6,7 +6,6 @@ import com.android.build.gradle.internal.api.DefaultAndroidSourceSet
 import com.android.build.gradle.internal.dsl.AndroidSourceSetFactory
 import com.ss.android.tools.plugins.tpin.extension.api.ITPinModuleConfigExtension
 import com.ss.android.tools.plugins.tpin.global.TPinModuleEnvironment
-import com.ss.android.tools.plugins.tpin.module.TPinModuleModel
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer

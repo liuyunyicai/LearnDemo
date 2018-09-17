@@ -7,5 +7,4 @@ class TPinModuleConstants {
     static final String BUILD_GRADLE_NAME = "build.gradle"
 
 
-
 }

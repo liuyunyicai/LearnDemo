@@ -1,7 +1,4 @@
-package com.ss.android.tools.plugins.tpin.module
-
-import org.gradle.api.Project
-
+package com.ss.android.tools.plugins.tpin.model
 /**
  * 环境变量配置
  **/

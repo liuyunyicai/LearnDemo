@@ -1,8 +1,8 @@
-package com.ss.android.tools.plugins.tpin.global.executors
+package com.ss.android.tools.plugins.tpin.global.service
 
-import com.ss.android.tools.plugins.tpin.global.base.BaseExecutor
-import com.ss.android.tools.plugins.tpin.module.GlobalEnviModel
-import com.ss.android.tools.plugins.tpin.module.TPinModuleModel
+import com.ss.android.tools.plugins.tpin.global.executors.context.IExecutorContext
+import com.ss.android.tools.plugins.tpin.model.GlobalEnviModel
+import com.ss.android.tools.plugins.tpin.model.TPinModuleModel
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import com.sun.istack.Nullable
 import org.gradle.api.Project
@@ -10,7 +10,13 @@ import org.gradle.api.Project
 /**
  * 对当前添加的module进行管理
  **/
-class ModuleManagerExecutor extends BaseExecutor{
+class ModuleManagerService implements IExecutorContext{
+    Project mProject
+
+    /**
+     * 当前所apply的module
+     **/
+    TPinModuleModel mCurrentApplyModule
 
     GlobalEnviModel mGlobalEnviModel
     /**
@@ -21,8 +27,8 @@ class ModuleManagerExecutor extends BaseExecutor{
     // 如果为第一次添加，则应清空之间的设置
     boolean mOriginSourceSetCleared
 
-    ModuleManagerExecutor(Project project) {
-        super(project)
+    ModuleManagerService(Project project) {
+        mProject = project
     }
 
     /**
@@ -118,10 +124,32 @@ class ModuleManagerExecutor extends BaseExecutor{
         return false
     }
 
+    @Override
     Iterator<TPinModuleModel> getPinModules() {
         return mPinModulesSet.iterator()
     }
 
+    @Override
+    void setCurrentApplyModel(TPinModuleModel apply) {
+        mCurrentApplyModule = apply
+    }
+
+    @Override
+    TPinModuleModel getCurrentApplyModule() {
+        return mCurrentApplyModule
+    }
+
+    @Override
+    Project getProject() {
+        return mProject
+    }
+
+    @Override
+    GlobalEnviModel getGlobalEnviModel() {
+        return mGlobalEnviModel
+    }
+
+    @Override
     @Nullable
     TPinModuleModel getMainModule() {
         def first = mPinModulesSet.first()
@@ -134,13 +162,15 @@ class ModuleManagerExecutor extends BaseExecutor{
     }
 
     static class PSet<TPinModuleModel> extends TreeSet<TPinModuleModel> {
+        TPinModuleModel find = null
         TPinModuleModel get(String name) {
             this.each {
                 if (it.mName.equals(name)) {
-                    return it
+                    find = it
+                    return true
                 }
             }
-            return null
+            return find
         }
     }
 }

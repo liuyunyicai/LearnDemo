@@ -1,4 +1,4 @@
-package com.ss.android.tools.plugins.tpin.global
+package com.ss.android.tools.plugins.tpin.extension.factory
 
 import com.android.build.gradle.BaseExtension
 import com.ss.android.tools.plugins.tpin.extension.TPinModuleWithFlavorExtensionImpl
@@ -27,7 +27,7 @@ class ExtensionFactory {
         if (null != api && null != impl) {
             return project.extensions.create(api, name, impl, project)
         }
-        TPinUtils.throwException("Invaid Extension Name ", name)
+        TPinUtils.throwException("Invalid Extension Name ", name)
     }
 
     static BaseExtension getBaseExtension(Project project, String name) {

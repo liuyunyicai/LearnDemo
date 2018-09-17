@@ -1,7 +1,7 @@
 package com.ss.android.tools.plugins.tpin.global.executors
 
-import com.ss.android.tools.plugins.tpin.global.base.BaseExecutor
-import com.ss.android.tools.plugins.tpin.utils.TPinUtils
+import com.ss.android.tools.plugins.tpin.global.executors.base.BaseExecutor
+import com.ss.android.tools.plugins.tpin.global.executors.context.IExecutorContext
 import org.gradle.api.Project
 
 class GenerateRExecutor extends BaseExecutor{
@@ -10,6 +10,9 @@ class GenerateRExecutor extends BaseExecutor{
         super(project)
     }
 
-    void execute() {
+    @Override
+    void execute(IExecutorContext context) {
+
     }
+
 }

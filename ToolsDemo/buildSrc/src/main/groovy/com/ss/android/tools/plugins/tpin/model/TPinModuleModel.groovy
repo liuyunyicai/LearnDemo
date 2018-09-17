@@ -1,6 +1,5 @@
-package com.ss.android.tools.plugins.tpin.module
+package com.ss.android.tools.plugins.tpin.model
 
-import com.android.build.gradle.api.AndroidSourceSet
 import com.android.build.gradle.internal.api.DefaultAndroidSourceSet
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import org.gradle.api.Project
@@ -95,7 +94,7 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
             return -1
         }
         // name相同，即视为同一module
-        if (this.mName == tPinModuleModel.mName) {
+        if (this.mName.equals(tPinModuleModel.mName)) {
             return 0
         }
         return 1
