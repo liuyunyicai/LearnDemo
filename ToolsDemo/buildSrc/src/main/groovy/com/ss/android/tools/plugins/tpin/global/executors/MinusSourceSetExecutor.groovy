@@ -7,6 +7,7 @@ import com.ss.android.tools.plugins.tpin.extension.factory.ExtensionFactory
 import com.ss.android.tools.plugins.tpin.global.executors.base.BaseExecutor
 import com.ss.android.tools.plugins.tpin.global.executors.context.IExecutorContext
 import com.ss.android.tools.plugins.tpin.model.TPinModuleModel
+import com.ss.android.tools.plugins.tpin.utils.TPinGradleUtils
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import org.gradle.api.Project
 
@@ -62,7 +63,7 @@ class MinusSourceSetExecutor extends BaseExecutor{
 
     void minusSourcesSet(AndroidSourceDirectorySet origin, AndroidSourceDirectorySet minus) {
         minus.srcDirs.each {
-            origin.srcDirs -= TPinUtils.getAbsolutePath(mProject, it.absolutePath)
+            origin.srcDirs -= TPinGradleUtils.getAbsolutePath(mProject, it.absolutePath)
         }
     }
 }

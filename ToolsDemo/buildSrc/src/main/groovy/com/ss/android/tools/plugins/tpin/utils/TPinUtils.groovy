@@ -8,23 +8,15 @@ import org.gradle.api.Project
 
 class TPinUtils {
 
-    /**
-     * 创建File
-     **/
-    static File createFile(Project project, String rootDir, String relativePath) {
-        return createFile(project, "$rootDir/$relativePath")
-    }
 
-    static File createFile(Project project, String path) {
-        return new File(getAbsolutePath(project, path))
-    }
-
-    static def getAbsolutePath(Project project, String path) {
-        if (path.charAt(0) != '/') {
-            path = "/$path"
+    static def logInfo1 = { String message, Collection<Object> its ->
+        String info = message
+        its.each {
+            info += " ${it.toString()}"
         }
-        "$project.projectDir.absolutePath$path"
+        println("=====================" + info)
     }
+
 
     static def logInfo = { Object... infos ->
         String info = ""
@@ -34,11 +26,6 @@ class TPinUtils {
         println("=====================" + info)
     }
 
-    static def getPackageName = { File androidManifestFile ->
-        AndroidManifest androidManifest = new AndroidManifest()
-        androidManifest.load(androidManifestFile)
-        androidManifest.packageName
-    }
 
     static def removeTrailingColon = { String pinModulePath ->
         pinModulePath.startsWith(":") ? pinModulePath.substring(1) : pinModulePath

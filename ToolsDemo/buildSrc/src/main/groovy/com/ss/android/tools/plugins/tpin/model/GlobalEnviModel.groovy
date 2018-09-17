@@ -1,6 +1,7 @@
 package com.ss.android.tools.plugins.tpin.model
 /**
  * 环境变量配置
+ * 此文件中都是相对路径
  **/
 class GlobalEnviModel {
 

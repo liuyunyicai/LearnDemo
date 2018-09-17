@@ -163,8 +163,8 @@ class ModuleManagerService implements IExecutorContext{
     }
 
     static class PSet<TPinModuleModel> extends TreeSet<TPinModuleModel> {
-        TPinModuleModel find = null
         TPinModuleModel get(String name) {
+            TPinModuleModel find = null
             this.each {
                 if (it.mName.equals(name)) {
                     find = it

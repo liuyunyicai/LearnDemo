@@ -6,6 +6,7 @@ import com.ss.android.tools.plugins.tpin.extension.api.ITPinExtension
 import com.ss.android.tools.plugins.tpin.extension.api.ITPinModuleConfigExtension
 import com.ss.android.tools.plugins.tpin.extension.api.ITPinModuleWithFlavorExtension
 import com.ss.android.tools.plugins.tpin.model.TPinModuleModel
+import com.ss.android.tools.plugins.tpin.utils.TPinFlavorHelper
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import org.gradle.api.Project
 

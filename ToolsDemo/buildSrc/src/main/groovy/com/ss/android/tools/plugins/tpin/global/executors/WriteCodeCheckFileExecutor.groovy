@@ -5,6 +5,7 @@ import com.ss.android.tools.plugins.tpin.global.executors.base.BaseExecutor
 import com.ss.android.tools.plugins.tpin.global.executors.context.IExecutorContext
 import com.ss.android.tools.plugins.tpin.model.GlobalEnviModel
 import com.ss.android.tools.plugins.tpin.model.TPinModuleModel
+import com.ss.android.tools.plugins.tpin.utils.TPinGradleUtils
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import org.gradle.api.Project
 import org.w3c.dom.Document
@@ -49,12 +50,12 @@ class WriteCodeCheckFileExecutor extends BaseExecutor {
     def writeFile(GlobalEnviModel enviModel, Map<String, List<TPinModuleModel>> map) {
         map.each { flavor, list ->
             String xmlDir = "$enviModel.mCodeCheckDir/$flavor"
-            File xmlDirFile = TPinUtils.createFile(mProject, xmlDir)
+            File xmlDirFile = TPinGradleUtils.createFile(mProject, xmlDir)
             if (!xmlDirFile.exists()) {
                 xmlDirFile.mkdir()
             }
 
-            def file = TPinUtils.createFile(mProject, "$xmlDir/$CODE_CHECK_FILE_NAME")
+            def file = TPinGradleUtils.createFile(mProject, "$xmlDir/$CODE_CHECK_FILE_NAME")
             if (!file.exists()) {
                 file.createNewFile()
             }
@@ -98,7 +99,7 @@ class WriteCodeCheckFileExecutor extends BaseExecutor {
     def createSrcElement(Document documentTemp, Element sourceElement, String name, AndroidSourceDirectorySet set) {
         Element srcElement = documentTemp.createElement(name)
         set.srcDirs.each {
-            createAndAddItemElement(documentTemp, srcElement, TPinUtils.getAbsolutePath(mProject, it.absolutePath))
+            createAndAddItemElement(documentTemp, srcElement, TPinGradleUtils.getAbsolutePath(mProject, it.absolutePath))
         }
         sourceElement.appendChild(srcElement)
     }

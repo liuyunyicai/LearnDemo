@@ -9,6 +9,7 @@ import com.ss.android.tools.plugins.tpin.global.executors.base.BaseExecutor
 import com.ss.android.tools.plugins.tpin.global.executors.context.IExecutorContext
 import com.ss.android.tools.plugins.tpin.model.GlobalEnviModel
 import com.ss.android.tools.plugins.tpin.model.TPinModuleModel
+import com.ss.android.tools.plugins.tpin.utils.TPinGradleUtils
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import org.gradle.api.GradleException
 import org.gradle.api.Project
@@ -41,7 +42,7 @@ class MergeManifestExecutor extends BaseExecutor {
      * sava
      **/
     private File doSave(GlobalEnviModel globalEnviModel, String moduleAndroidManifest) {
-        def saveDir = TPinUtils.createFile(mProject, globalEnviModel.mMainfestDir)
+        def saveDir = TPinGradleUtils.createFile(mProject, globalEnviModel.mMainfestDir)
         saveDir.mkdirs()
         def AndroidManifestFile = new File(saveDir, MANIFEST_NAME)
         AndroidManifestFile.createNewFile()
@@ -53,7 +54,7 @@ class MergeManifestExecutor extends BaseExecutor {
      * merge
      **/
     private String doMerge(TPinModuleModel mainModule, Iterator<TPinModuleModel> modules) {
-        File mainManifestFile = TPinUtils.createFile(mProject, mainModule.mAndroidSourceSet.mainfestSrcFilePath)
+        File mainManifestFile = TPinGradleUtils.createFile(mProject, mainModule.mAndroidSourceSet.mainfestSrcFilePath)
 
         ManifestMerger2.MergeType mergeType = ManifestMerger2.MergeType.APPLICATION
         XmlDocument.Type documentType = XmlDocument.Type.MAIN
@@ -61,7 +62,7 @@ class MergeManifestExecutor extends BaseExecutor {
         invoker.withFeatures(ManifestMerger2.Invoker.Feature.NO_PLACEHOLDER_REPLACEMENT)
         modules.each {
             if (!it.isMainModule) {
-                def microManifestFile = TPinUtils.createFile(mProject, it.mAndroidSourceSet.mainfestSrcFilePath)
+                def microManifestFile = TPinGradleUtils.createFile(mProject, it.mAndroidSourceSet.mainfestSrcFilePath)
                 if (microManifestFile.exists()) {
                     invoker.addLibraryManifest(microManifestFile)
                     TPinUtils.logInfo("addLibraryManifest " + it.mName, microManifestFile.absolutePath)

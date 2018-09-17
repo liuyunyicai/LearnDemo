@@ -5,6 +5,7 @@ import com.ss.android.tools.plugins.tpin.global.TPinModuleEnvironment
 import com.ss.android.tools.plugins.tpin.global.executors.base.BaseExecutor
 import com.ss.android.tools.plugins.tpin.global.executors.context.IExecutorContext
 import com.ss.android.tools.plugins.tpin.model.TPinModuleModel
+import com.ss.android.tools.plugins.tpin.utils.TPinGradleUtils
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import org.gradle.api.Project
 
@@ -12,9 +13,6 @@ import org.gradle.api.Project
  * 执行module的build文件
  **/
 class ApplyBuildExecutor extends BaseExecutor{
-    TPinModuleModel mCurrentApplyModule
-
-
     ApplyBuildExecutor(Project project) {
         super(project)
     }
@@ -32,7 +30,7 @@ class ApplyBuildExecutor extends BaseExecutor{
      * 执行每一个module的build.gradle
      **/
     void applyPinModuleBuild(IExecutorContext context, TPinModuleModel pinModule) {
-        def pinModuleBuild = TPinUtils.createFile(mProject, pinModule.mRootDir, TPinModuleConstants.BUILD_GRADLE_NAME)
+        def pinModuleBuild = TPinGradleUtils.createFile(mProject, pinModule.mRootDir, TPinModuleConstants.BUILD_GRADLE_NAME)
 
         TPinUtils.logInfo("applyPinModuleBuild", pinModuleBuild.absolutePath)
 

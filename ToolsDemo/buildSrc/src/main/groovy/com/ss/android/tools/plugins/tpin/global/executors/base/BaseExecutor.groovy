@@ -11,5 +11,9 @@ abstract class BaseExecutor {
         mProject = project
     }
 
+    void setProject(Project project) {
+        mProject = project
+    }
+
     abstract void execute(IExecutorContext context)
 }

@@ -28,6 +28,7 @@ class ExecutorFactory {
             executor = build(project, name)
             sExecutors.put(name, executor)
         }
+        executor.setProject(project)
         return executor
     }
 

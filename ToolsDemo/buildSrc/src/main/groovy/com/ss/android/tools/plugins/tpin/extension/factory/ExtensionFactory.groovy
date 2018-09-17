@@ -10,6 +10,9 @@ import org.gradle.api.Project
 
 class ExtensionFactory {
 
+    /**
+     * 自定义extension
+     **/
     static <T> T build(Project project, String name) {
         Class<?> api
         Class<?> impl
@@ -30,7 +33,14 @@ class ExtensionFactory {
         TPinUtils.throwException("Invalid Extension Name ", name)
     }
 
+    /**
+     * 获取基础Extension, 如android
+     **/
     static BaseExtension getBaseExtension(Project project, String name) {
         return project.extensions.getByName(name)
+    }
+
+    static BaseExtension getAndroidExtension(Project project) {
+        return project.extensions.getByName('android')
     }
 }
