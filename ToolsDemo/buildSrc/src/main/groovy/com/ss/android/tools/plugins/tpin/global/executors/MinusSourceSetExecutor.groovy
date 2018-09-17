@@ -5,7 +5,7 @@ import com.android.build.gradle.api.AndroidSourceDirectorySet
 import com.android.build.gradle.api.AndroidSourceSet
 import com.ss.android.tools.plugins.tpin.extension.factory.ExtensionFactory
 import com.ss.android.tools.plugins.tpin.global.executors.base.BaseExecutor
-import com.ss.android.tools.plugins.tpin.global.executors.context.IExecutorContext
+import com.ss.android.tools.plugins.tpin.global.service.context.IExecutorContext
 import com.ss.android.tools.plugins.tpin.model.TPinModuleModel
 import com.ss.android.tools.plugins.tpin.utils.TPinGradleUtils
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
@@ -22,7 +22,7 @@ class MinusSourceSetExecutor extends BaseExecutor{
 
     @Override
     void execute(IExecutorContext context) {
-        excludeFromSourceSet(context.project, context.pinModules.iterator())
+        excludeFromSourceSet(context.project, context.pinModules)
     }
 
     /**
@@ -32,7 +32,7 @@ class MinusSourceSetExecutor extends BaseExecutor{
         excludeFromSourceSet(project, TPinUtils.variableParamsToList(modules))
     }
 
-    void excludeFromSourceSet(Project project, Iterator<TPinModuleModel> modules) {
+    void excludeFromSourceSet(Project project, Collection<TPinModuleModel> modules) {
         modules.each {
             def set = it.mAndroidSourceSet
             it.mFlavors.each { flavor ->

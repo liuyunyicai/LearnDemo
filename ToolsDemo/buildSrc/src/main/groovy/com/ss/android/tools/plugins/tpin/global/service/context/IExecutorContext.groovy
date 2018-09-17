@@ -1,4 +1,4 @@
-package com.ss.android.tools.plugins.tpin.global.executors.context
+package com.ss.android.tools.plugins.tpin.global.service.context
 
 import com.ss.android.tools.plugins.tpin.model.GlobalEnviModel
 import com.ss.android.tools.plugins.tpin.model.TPinModuleModel
@@ -11,7 +11,7 @@ interface IExecutorContext {
 
     TPinModuleModel getMainModule()
 
-    Iterator<TPinModuleModel> getPinModules()
+    Collection<TPinModuleModel> getPinModules()
 
     void setCurrentApplyModel(TPinModuleModel apply)
 

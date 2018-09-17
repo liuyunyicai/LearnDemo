@@ -2,7 +2,7 @@ package com.ss.android.tools.plugins.tpin.global.executors
 
 import com.android.build.gradle.api.AndroidSourceDirectorySet
 import com.ss.android.tools.plugins.tpin.global.executors.base.BaseExecutor
-import com.ss.android.tools.plugins.tpin.global.executors.context.IExecutorContext
+import com.ss.android.tools.plugins.tpin.global.service.context.IExecutorContext
 import com.ss.android.tools.plugins.tpin.model.GlobalEnviModel
 import com.ss.android.tools.plugins.tpin.model.TPinModuleModel
 import com.ss.android.tools.plugins.tpin.utils.TPinGradleUtils
@@ -30,7 +30,7 @@ class WriteCodeCheckFileExecutor extends BaseExecutor {
         writeFile(context.globalEnviModel, getAllFlavorInfo(context.pinModules))
     }
 
-    def getAllFlavorInfo(Iterator<TPinModuleModel> modules) {
+    def getAllFlavorInfo(Collection<TPinModuleModel> modules) {
         Map<String, List<TPinModuleModel>> map = new HashMap<>()
 
         modules.each { module ->

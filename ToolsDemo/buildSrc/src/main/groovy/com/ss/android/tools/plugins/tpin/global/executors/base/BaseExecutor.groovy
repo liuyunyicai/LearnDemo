@@ -1,6 +1,6 @@
 package com.ss.android.tools.plugins.tpin.global.executors.base
 
-import com.ss.android.tools.plugins.tpin.global.executors.context.IExecutorContext
+import com.ss.android.tools.plugins.tpin.global.service.context.IExecutorContext
 import org.gradle.api.Project
 
 abstract class BaseExecutor {

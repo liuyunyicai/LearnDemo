@@ -5,7 +5,7 @@ import com.android.build.gradle.api.AndroidSourceDirectorySet
 import com.android.build.gradle.api.AndroidSourceSet
 import com.ss.android.tools.plugins.tpin.extension.factory.ExtensionFactory
 import com.ss.android.tools.plugins.tpin.global.executors.base.BaseExecutor
-import com.ss.android.tools.plugins.tpin.global.executors.context.IExecutorContext
+import com.ss.android.tools.plugins.tpin.global.service.context.IExecutorContext
 import com.ss.android.tools.plugins.tpin.model.TPinModuleModel
 import com.ss.android.tools.plugins.tpin.utils.TPinGradleUtils
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
@@ -22,7 +22,7 @@ class SetSourceSetExecutor extends BaseExecutor{
 
     @Override
     void execute(IExecutorContext context) {
-        includeIntoSourceSet(context.project, context.pinModules.iterator())
+        includeIntoSourceSet(context.project, context.pinModules)
     }
 /**
      * TODO: To optimize
@@ -32,7 +32,7 @@ class SetSourceSetExecutor extends BaseExecutor{
         includeIntoSourceSet(project, TPinUtils.variableParamsToList(modules))
     }
 
-    void includeIntoSourceSet(Project project, Iterator<TPinModuleModel> modules) {
+    void includeIntoSourceSet(Project project, Collection<TPinModuleModel> modules) {
 
         modules.each {
             def set = it.mAndroidSourceSet

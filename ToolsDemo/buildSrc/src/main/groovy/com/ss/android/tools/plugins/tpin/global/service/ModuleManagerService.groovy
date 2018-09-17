@@ -1,6 +1,6 @@
 package com.ss.android.tools.plugins.tpin.global.service
 
-import com.ss.android.tools.plugins.tpin.global.executors.context.IExecutorContext
+import com.ss.android.tools.plugins.tpin.global.service.context.IExecutorContext
 import com.ss.android.tools.plugins.tpin.model.GlobalEnviModel
 import com.ss.android.tools.plugins.tpin.model.TPinModuleModel
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
@@ -126,8 +126,8 @@ class ModuleManagerService implements IExecutorContext{
     }
 
     @Override
-    Iterator<TPinModuleModel> getPinModules() {
-        return mPinModulesSet.iterator()
+    Collection<TPinModuleModel> getPinModules() {
+        return mPinModulesSet
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.ss.android.tools.plugins.tpin.global.executors
 import com.ss.android.tools.plugins.tpin.common.TPinModuleConstants
 import com.ss.android.tools.plugins.tpin.global.TPinModuleEnvironment
 import com.ss.android.tools.plugins.tpin.global.executors.base.BaseExecutor
-import com.ss.android.tools.plugins.tpin.global.executors.context.IExecutorContext
+import com.ss.android.tools.plugins.tpin.global.service.context.IExecutorContext
 import com.ss.android.tools.plugins.tpin.model.TPinModuleModel
 import com.ss.android.tools.plugins.tpin.utils.TPinGradleUtils
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
