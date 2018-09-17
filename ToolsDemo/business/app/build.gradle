@@ -173,7 +173,7 @@ tpinModules {
         main {
             include("feed", "/src/main/module/feed")
 
-            includemain("main", "/src/main")
+            includemain("main", "/src/main", "/src/main")
         }
 
         huhu1111 {

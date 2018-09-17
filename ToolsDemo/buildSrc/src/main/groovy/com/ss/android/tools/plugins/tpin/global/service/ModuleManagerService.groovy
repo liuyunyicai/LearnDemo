@@ -34,7 +34,7 @@ class ModuleManagerService implements IExecutorContext{
     /**
      * 添加module
      **/
-    void includeModule(String name, String flavor = "main", String rootDir = null, boolean isMain = false) {
+    void includeModule(String name, String flavor = "main", String rootDir = null, boolean isMain = false, String codeRootDir = null) {
         TPinUtils.logInfo("includeModule", name, flavor, rootDir, isMain)
 
         // 如果为第一次添加，则应清空之间的设置
@@ -56,6 +56,7 @@ class ModuleManagerService implements IExecutorContext{
                     .name(name)
                     .flavor(flavor)
                     .rootDir(rootDir)
+                    .codeRootDir(codeRootDir)
                     .mainModule(isMain)
                     .build()
 

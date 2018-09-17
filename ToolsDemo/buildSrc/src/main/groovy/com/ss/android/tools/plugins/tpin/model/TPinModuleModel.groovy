@@ -18,6 +18,9 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
     // 设置build.gradle所在路径
     String mRootDir
 
+    // 代码的根目录地址
+    String mCodeRootDir
+
     // 配置module的sourceset等属性
     DefaultTPinModuleAndroidSourceSet mAndroidSourceSet
 
@@ -35,13 +38,18 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
             // 生成默认rootDir
             info.mRootDir = getRootDir(info.mProject, info.mName, info.mRootDir, info.isMainModule)
         }
+
+        if (null == info.mCodeRootDir) {
+            info.mCodeRootDir = info.mRootDir + "/src/main/"
+        }
+
         TPinUtils.logInfo("getRootDir", info.mRootDir)
 
         isMainModule = info.isMainModule
         mName = info.mName
         mRootDir = info.mRootDir
         // TODO: publishPackage暂不知是什么意思，getPackageConfigurationName会用到；这里只是用AndroidSourceSet的srcDir
-        mAndroidSourceSet = new DefaultTPinModuleAndroidSourceSet(info.mName, info.mProject, false, info.mRootDir)
+        mAndroidSourceSet = new DefaultTPinModuleAndroidSourceSet(info.mName, info.mProject, false, info.mCodeRootDir)
         addFlavor(info.mFlavor)
         TPinUtils.logInfo("buildPinModule", mName, mAndroidSourceSet.java.srcDirs)
     }
@@ -75,6 +83,11 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
             return this
         }
 
+        Builder codeRootDir(String codeRootDir) {
+            info.mCodeRootDir = codeRootDir
+            return this
+        }
+
         TPinModuleModel build() {
             return new TPinModuleModel(info)
         }
@@ -86,6 +99,7 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
         String mName
         String mRootDir
         String mFlavor
+        String mCodeRootDir
     }
 
     @Override
@@ -103,9 +117,9 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
 
     static class DefaultTPinModuleAndroidSourceSet extends DefaultAndroidSourceSet{
 
-        DefaultTPinModuleAndroidSourceSet(String name, Project project, boolean publishPackage, String rootDir) {
+        DefaultTPinModuleAndroidSourceSet(String name, Project project, boolean publishPackage, String codeRootDir) {
             super(name, project, publishPackage)
-            setRoot("$rootDir/src/main/")
+            setRoot("$codeRootDir")
         }
 
         String getMainfestSrcFilePath() {

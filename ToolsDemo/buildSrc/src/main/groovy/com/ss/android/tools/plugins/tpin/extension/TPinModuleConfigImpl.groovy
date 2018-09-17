@@ -24,6 +24,11 @@ class TPinModuleConfigImpl extends BaseTPinExtensionImpl implements ITPinModuleC
     }
 
     @Override
+    void include(String moduleName, String rootDir, String codeRootDir) {
+        TPinModuleEnvironment.getInstance(mProject).includeModule(moduleName, name, rootDir, codeRootDir)
+    }
+
+    @Override
     void includemain(String moduleName) {
         TPinModuleEnvironment.getInstance(mProject).includeModule(moduleName, name, isMain = true)
     }
@@ -31,5 +36,10 @@ class TPinModuleConfigImpl extends BaseTPinExtensionImpl implements ITPinModuleC
     @Override
     void includemain(String moduleName, String rootDir) {
         TPinModuleEnvironment.getInstance(mProject).includeModule(moduleName, name, rootDir, true)
+    }
+
+    @Override
+    void includemain(String moduleName, String rootDir, String codeRootDir) {
+        TPinModuleEnvironment.getInstance(mProject).includeModule(moduleName, name, rootDir, true, codeRootDir)
     }
 }

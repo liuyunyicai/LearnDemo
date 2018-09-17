@@ -17,6 +17,11 @@ interface ITPinModuleConfig extends ITPinExtension {
     void include(String moduleName, String rootDir)
 
     /**
+     * @param codeRootDir code根路径，默认与rootDir    ·
+     **/
+    void include(String moduleName, String rootDir, String codeRootDir)
+
+    /**
      * 指定main module
      **/
     void includemain(String moduleName)
@@ -25,6 +30,11 @@ interface ITPinModuleConfig extends ITPinExtension {
      *
      **/
     void includemain(String moduleName, String rootDir)
+
+    /**
+     *
+     **/
+    void includemain(String moduleName, String rootDir, String codeRootDir)
 
     /**
      * 配置整个工程

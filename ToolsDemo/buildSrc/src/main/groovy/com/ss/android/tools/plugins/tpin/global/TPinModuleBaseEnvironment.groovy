@@ -29,8 +29,8 @@ class TPinModuleBaseEnvironment {
     }
 
 
-    void includeModule(String name, String flavor = "main", String rootDir = null, boolean isMain = false) {
-        mModuleManagerService.includeModule(name, flavor, rootDir, isMain)
+    void includeModule(String name, String flavor = "main", String rootDir = null, boolean isMain = false, String codeRootDir = null) {
+        mModuleManagerService.includeModule(name, flavor, rootDir, isMain, codeRootDir)
     }
 
 
