@@ -27,43 +27,41 @@ class WriteCodeCheckFileExecutor extends BaseExecutor {
 
     @Override
     void execute(IExecutorContext context) {
-        writeFile(context.globalEnviModel, getAllFlavorInfo(context.pinModules))
+        writeFile(context.globalEnviModel, context.pinModules)
     }
 
-    def getAllFlavorInfo(Collection<TPinModuleModel> modules) {
-        Map<String, List<TPinModuleModel>> map = new HashMap<>()
+//    def getAllFlavorInfo(Collection<TPinModuleModel> modules) {
+//        Map<String, List<TPinModuleModel>> map = new HashMap<>()
+//
+//        modules.each { module ->
+//            module.mFlavors.each {
+//                List<TPinModuleModel> list = map.get(it)
+//                if (null == list) {
+//                    list = new ArrayList<>()
+//                    map.put(it, list)
+//                }
+//                list.add(module)
+//            }
+//        }
+//
+//        map
+//    }
 
-        modules.each { module ->
-            module.mFlavors.each {
-                List<TPinModuleModel> list = map.get(it)
-                if (null == list) {
-                    list = new ArrayList<>()
-                    map.put(it, list)
-                }
-                list.add(module)
-            }
+    def writeFile(GlobalEnviModel enviModel, Collection<TPinModuleModel> list) {
+        String xmlDir = "$enviModel.mCodeCheckDir"
+        File xmlDirFile = TPinGradleUtils.createFile(mProject, xmlDir)
+        if (!xmlDirFile.exists()) {
+            xmlDirFile.mkdir()
         }
 
-        map
-    }
-
-    def writeFile(GlobalEnviModel enviModel, Map<String, List<TPinModuleModel>> map) {
-        map.each { flavor, list ->
-            String xmlDir = "$enviModel.mCodeCheckDir/$flavor"
-            File xmlDirFile = TPinGradleUtils.createFile(mProject, xmlDir)
-            if (!xmlDirFile.exists()) {
-                xmlDirFile.mkdir()
-            }
-
-            def file = TPinGradleUtils.createFile(mProject, "$xmlDir/$CODE_CHECK_FILE_NAME")
-            if (!file.exists()) {
-                file.createNewFile()
-            }
-            save(file, list)
+        def file = TPinGradleUtils.createFile(mProject, "$xmlDir/$CODE_CHECK_FILE_NAME")
+        if (!file.exists()) {
+            file.createNewFile()
         }
+        save(file, list)
     }
 
-    void save(File destFile, List<TPinModuleModel> modules) {
+    void save(File destFile, Collection<TPinModuleModel> modules) {
         TPinUtils.logInfo("******* WriteCodeCheckFileExecutor", destFile.absolutePath)
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance()
         Document documentTemp = builderFactory.newDocumentBuilder().newDocument()

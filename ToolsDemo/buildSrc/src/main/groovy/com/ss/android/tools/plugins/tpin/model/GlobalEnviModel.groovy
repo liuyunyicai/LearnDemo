@@ -22,7 +22,7 @@ class GlobalEnviModel {
 
     GlobalEnviModel() {
         mMainfestDir = "/build/tpinModule/"
-        mCodeCheckDir= "/build/tpinModule/"
+        mCodeCheckDir= "/build/tpinModule/codecheck"
         mRFileDir = ""
     }
 }
