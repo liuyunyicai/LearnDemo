@@ -36,6 +36,8 @@
 
         <service android:name="com.example.nealkyliu.toolsdemo.keep_alive.KeepAliveService"></service>
 
+        <activity android:name=".kotlin.KotlinActivity"/>
+
         <activity android:name="com.example.nealkyliu.toolsdemo.livedata.activity.TestNameActivity"
                   android:launchMode="singleInstance"/>
 

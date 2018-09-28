@@ -14,7 +14,7 @@ import org.gradle.api.Project
 /**
  * 清除设置的SourceSet
  **/
-class MinusSourceSetExecutor extends BaseExecutor{
+class MinusSourceSetExecutor extends AbsSetSourceSetExecutor {
 
     MinusSourceSetExecutor(Project project) {
         super(project)
@@ -22,31 +22,31 @@ class MinusSourceSetExecutor extends BaseExecutor{
 
     @Override
     void execute(IExecutorContext context) {
-        excludeFromSourceSet(context.project, context.pinModules)
+        getExcuteFlavors(context).each { flavor ->
+            excludeFromSourceSet(context.project, flavor, context.getSingleFlavorPinModules(flavor))
+        }
     }
 
     /**
      * 从sourceSet中移除
      **/
-    void excludeFromSourceSet(Project project, TPinModuleModel... modules) {
-        excludeFromSourceSet(project, TPinUtils.variableParamsToList(modules))
+    void excludeFromSourceSet(Project project, String flavor, TPinModuleModel... modules) {
+        excludeFromSourceSet(project, flavor, TPinUtils.variableParamsToList(modules))
     }
 
-    void excludeFromSourceSet(Project project, Collection<TPinModuleModel> modules) {
+    void excludeFromSourceSet(Project project, String flavor, Collection<TPinModuleModel> modules) {
         modules.each {
             def set = it.mAndroidSourceSet
-            it.mFlavors.each { flavor ->
-                AndroidSourceSet obj = getProjectSourceSet(project, flavor)
-                minusSourcesSet(obj.java, set.java)
-                minusSourcesSet(obj.res, set.res)
-                minusSourcesSet(obj.jni, set.jni)
-                minusSourcesSet(obj.jniLibs, set.jniLibs)
-                minusSourcesSet(obj.aidl, set.aidl)
-                minusSourcesSet(obj.assets, set.assets)
-                minusSourcesSet(obj.shaders, set.shaders)
-                minusSourcesSet(obj.resources, set.resources)
-                minusSourcesSet(obj.renderscript, set.renderscript)
-            }
+            AndroidSourceSet obj = getProjectSourceSet(project, flavor)
+            minusSourcesSet(obj.java, set.java)
+            minusSourcesSet(obj.res, set.res)
+            minusSourcesSet(obj.jni, set.jni)
+            minusSourcesSet(obj.jniLibs, set.jniLibs)
+            minusSourcesSet(obj.aidl, set.aidl)
+            minusSourcesSet(obj.assets, set.assets)
+            minusSourcesSet(obj.shaders, set.shaders)
+            minusSourcesSet(obj.resources, set.resources)
+            minusSourcesSet(obj.renderscript, set.renderscript)
         }
     }
 

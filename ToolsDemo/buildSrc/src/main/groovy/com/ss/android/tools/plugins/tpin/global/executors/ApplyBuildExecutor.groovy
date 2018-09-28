@@ -19,7 +19,7 @@ class ApplyBuildExecutor extends BaseExecutor{
 
     @Override
     void execute(IExecutorContext context) {
-        context.pinModules.each {
+        context.curFlavorPinModules.each {
             applyPinModuleBuild(context, it)
         }
         context.setCurrentApplyModel(null)
@@ -32,7 +32,7 @@ class ApplyBuildExecutor extends BaseExecutor{
     void applyPinModuleBuild(IExecutorContext context, TPinModuleModel pinModule) {
         def pinModuleBuild = TPinGradleUtils.createFile(mProject, pinModule.mRootDir, TPinModuleConstants.BUILD_GRADLE_NAME)
 
-        TPinUtils.logInfo("applyPinModuleBuild", pinModuleBuild.absolutePath)
+        TPinUtils.logInfo("applyPinModuleBuild", pinModule.mName, pinModuleBuild.absolutePath)
 
         if (pinModuleBuild.exists()) {
             TPinModuleEnvironment.getInstance(mProject).saveValue("myConfig", pinModule.mName)

@@ -24,10 +24,17 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
     // 配置module的sourceset等属性
     DefaultTPinModuleAndroidSourceSet mAndroidSourceSet
 
+
     /**
-     * 包含该module的Flavor
+     * 是否为空module
      **/
-    Set<String> mFlavors = new HashSet<>()
+    boolean isFake = false
+
+    static TPinModuleModel getFakeModule() {
+        TPinModuleModel module = new TPinModuleModel()
+        module.isFake = true
+        return module
+    }
 
     private TPinModuleModel() {
 
@@ -50,7 +57,6 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
         mRootDir = info.mRootDir
         // TODO: publishPackage暂不知是什么意思，getPackageConfigurationName会用到；这里只是用AndroidSourceSet的srcDir
         mAndroidSourceSet = new DefaultTPinModuleAndroidSourceSet(info.mName, info.mProject, false, info.mCodeRootDir)
-        addFlavor(info.mFlavor)
         TPinUtils.logInfo("buildPinModule", mName, mAndroidSourceSet.java.srcDirs)
     }
 
@@ -78,11 +84,6 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
             return this
         }
 
-        Builder flavor(String flavor) {
-            info.mFlavor = flavor
-            return this
-        }
-
         Builder codeRootDir(String codeRootDir) {
             info.mCodeRootDir = codeRootDir
             return this
@@ -98,7 +99,6 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
         boolean isMainModule
         String mName
         String mRootDir
-        String mFlavor
         String mCodeRootDir
     }
 
@@ -142,13 +142,6 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
         return convertNameToPath(project, name)
     }
 
-    /**
-     * 添加包含该module的flavor
-     **/
-    void addFlavor(String flavor) {
-        mFlavors.add(flavor)
-    }
-
 
     private static String convertNameToPath(Project project, String name) {
         String[] pathElements = removeTrailingColon(name).split(":")
@@ -162,6 +155,11 @@ class TPinModuleModel implements Comparable<TPinModuleModel> {
 
     private static String removeTrailingColon(String pinModulePath) {
         return pinModulePath.startsWith(":") ? pinModulePath.substring(1) : pinModulePath
+    }
+
+    @Override
+    String toString() {
+        return "TPinModule:$mName"
     }
 }
 

@@ -16,6 +16,7 @@ import com.example.nealkyliu.toolsdemo.bus.LiveDataBus;
 import com.example.nealkyliu.toolsdemo.bus.eventbus.MessageEvent;
 import com.example.nealkyliu.toolsdemo.bussiness.config.AppConfigCenter;
 import com.example.nealkyliu.toolsdemo.bussiness.test.job.TestExecutor;
+import com.example.nealkyliu.toolsdemo.kotlin.KotlinActivity;
 import com.example.nealkyliu.toolsdemo.lifecycle.FragmentLifeCycleImpl;
 import com.example.nealkyliu.toolsdemo.lifecycle.LifeCycleActivity;
 import com.example.nealkyliu.toolsdemo.livedata.activity.AbsDemoActivity;
@@ -114,7 +115,7 @@ public class MainActivity extends AbsDemoActivity {
                 mSwitched = !mSwitched;
                 resumeFragment(R.id.fragment_container, toSwitchFragment);
 
-                startActivity(new Intent(this, WhiteListSelectActivity.class));
+                startActivity(new Intent(this, KotlinActivity.class));
                 break;
             case R.id.mGoLifeCycle:
                 startActivity(new Intent(this, LifeCycleActivity.class));

@@ -10,6 +10,9 @@ class TPinUtils {
 
 
     static def logInfo1 = { String message, Collection<Object> its ->
+        if (!TPinModuleEnvironment.sDebuggable) {
+            return
+        }
         String info = message
         its.each {
             info += " ${it.toString()}"
@@ -19,6 +22,10 @@ class TPinUtils {
 
 
     static def logInfo = { Object... infos ->
+        if (!TPinModuleEnvironment.sDebuggable) {
+            return
+        }
+
         String info = ""
         infos.each {
             info += " ${it.toString()}"
@@ -52,6 +59,38 @@ class TPinUtils {
             return true
         }
         return false
+    }
+
+    /**
+     * 无序，返回HashSet
+     **/
+    static <T> Collection<T> mergeCollections(Collection<T> c1, Collection<T> c2) {
+        TPinUtils.logInfo("mergeCollections", c1, c2)
+
+        if (c1 == c2) {
+            return c1
+        }
+
+        Set<T> set = new HashSet<>()
+
+        if (null != c1) {
+            set.addAll(c1)
+        }
+        if (null != c2) {
+            set.addAll(c2)
+        }
+
+        TPinUtils.logInfo("mergeCollections result ", set)
+        return set
+    }
+
+    /**
+     * 由于源数据中的集合不想被改变，因此添加到一个新的链表中可供修改
+     **/
+    static <T> List<T> getMutableNewList(Collection<T> origin) {
+        List<T> newList = new ArrayList<>()
+        newList.addAll(origin)
+        return newList
     }
 
     static def logger = new ILogger() {

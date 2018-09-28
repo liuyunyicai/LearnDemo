@@ -2,6 +2,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.example.nealkyliu.toolsdemo.R
+import com.example.nealkyliu.toolsdemo.utils.DebugLogger
+import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.launch
 import java.util.*
 
 /**
@@ -24,19 +29,21 @@ abstract class KotlinActivity1 : AppCompatActivity() , View.OnClickListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_lifecycle)
+        val async1 = async {
+            DebugLogger.dt("KotlinActivity1 Job1")
+        }
 
-//        mTagText = findViewById(R.id.mTagText)
-//        mTagText.setText(getLocale("en-us").toString())
+        val async2 = async {
+            DebugLogger.dt("KotlinActivity1 Job2")
+        }
 
-//        mTagText.setText(R.string.tag_name)
-//        mNameText.setText("")
-//        mNameText1111.setText("")
-
-//        findViewById<View>(R.id.mGoLifeCycle)
-
-
-//        hahahahhahah.setText();
+        launch(UI) {
+            DebugLogger.dt("KotlinActivity1 Job3")
+            async1.await()
+            DebugLogger.dt("KotlinActivity1 Job4")
+            async2.await()
+            DebugLogger.dt("KotlinActivity1 Job5")
+        }
     }
 
     fun getLocale(language : String?) = Locale(language)

@@ -4,55 +4,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black_30"
+    >
 
-    <Button
-        android:id="@+id/button1"
+    <!--前景 Topic Tile-->
+    <TextView
+        android:id="@+id/mTopicTitleTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bu"
-        android:layout_marginStart="8dp"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold"
+        android:shadowColor="@android:color/holo_red_dark"
+        android:shadowDx="50"
+        android:shadowRadius="1"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="#Adventure Travel"
         />
 
-    <Button
-        android:id="@+id/button2"
+    <com.example.nealkyliu.toolsdemo.view.MultiOverlapView
+        android:id="@+id/mTextOverlapView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bu"
-        android:layout_marginStart="8dp"
-        app:layout_constraintLeft_toRightOf="@id/button1"
-        app:layout_constraintRight_toLeftOf="@+id/button3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="BU"
-        android:layout_marginStart="8dp"
-        app:layout_constraintLeft_toRightOf="@+id/button2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="BU"
-        android:layout_marginStart="8dp"
-        app:layout_constraintLeft_toRightOf="@+id/button2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+    </com.example.nealkyliu.toolsdemo.view.MultiOverlapView>
 
 
 

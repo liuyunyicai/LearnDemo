@@ -14,7 +14,7 @@ import org.gradle.api.Project
 /**
  * 设置SourceSet
  **/
-class SetSourceSetExecutor extends BaseExecutor{
+class SetSourceSetExecutor extends AbsSetSourceSetExecutor {
 
     SetSourceSetExecutor(Project project) {
         super(project)
@@ -22,32 +22,37 @@ class SetSourceSetExecutor extends BaseExecutor{
 
     @Override
     void execute(IExecutorContext context) {
-        includeIntoSourceSet(context.project, context.pinModules)
+        getExcuteFlavors(context).each { flavor ->
+            includeIntoSourceSet(context.project, flavor, context.getSingleFlavorPinModules(flavor))
+        }
     }
-/**
+
+
+     /**
      * TODO: To optimize
      * 添加到SourceSet中
      **/
-    void includeIntoSourceSet(Project project, TPinModuleModel... modules) {
-        includeIntoSourceSet(project, TPinUtils.variableParamsToList(modules))
+    void includeIntoSourceSet(Project project,String flavor, TPinModuleModel... modules) {
+        includeIntoSourceSet(project, flavor, TPinUtils.variableParamsToList(modules))
     }
 
-    void includeIntoSourceSet(Project project, Collection<TPinModuleModel> modules) {
+    void includeIntoSourceSet(Project project, String flavor, Collection<TPinModuleModel> modules) {
+
 
         modules.each {
             def set = it.mAndroidSourceSet
-            it.mFlavors.each { flavor ->
-                AndroidSourceSet obj = getProjectSourceSet(project, flavor)
-                plusSourcesSet(obj.java        , set.java)
-                plusSourcesSet(obj.res         , set.res)
-                plusSourcesSet(obj.jni         , set.jni)
-                plusSourcesSet(obj.jniLibs     , set.jniLibs)
-                plusSourcesSet(obj.aidl        , set.aidl)
-                plusSourcesSet(obj.assets      , set.assets)
-                plusSourcesSet(obj.shaders     , set.shaders)
-                plusSourcesSet(obj.resources   , set.resources)
-                plusSourcesSet(obj.renderscript, set.renderscript)
-            }
+            TPinUtils.logInfo("includeIntoSourceSet", flavor, it.mName, set.java.srcDirs)
+            AndroidSourceSet obj = getProjectSourceSet(project, flavor)
+            TPinUtils.logInfo("**** origin ", obj.java.srcDirs, "add ", set.java.srcDirs)
+            plusSourcesSet(obj.java        , set.java)
+            plusSourcesSet(obj.res         , set.res)
+            plusSourcesSet(obj.jni         , set.jni)
+            plusSourcesSet(obj.jniLibs     , set.jniLibs)
+            plusSourcesSet(obj.aidl        , set.aidl)
+            plusSourcesSet(obj.assets      , set.assets)
+            plusSourcesSet(obj.shaders     , set.shaders)
+            plusSourcesSet(obj.resources   , set.resources)
+            plusSourcesSet(obj.renderscript, set.renderscript)
         }
     }
 

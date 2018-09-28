@@ -11,4 +11,6 @@ interface ITPinModuleWithFlavorExtension extends ITPinModuleGlobalConfig{
     String NAME = "tpinModules"
 
     void config(Action<NamedDomainObjectContainer<TPinModuleConfigImpl>> action)
+
+    void debuggable(boolean debug)
 }

@@ -27,14 +27,77 @@ allprojects {
         google()
     }
 
-    beforeEvaluate { projects ->
-        println "beforeEvaluate task to $project"
-    }
-
-    afterEvaluate { project ->
-        println "afterEvaluate task to $project"
-    }
+//    gradle.taskGraph.whenReady {
+//        println "************ ROOTPROJECT $project.name task graph build completed"
+//    }
+//
+//    gradle.taskGraph.beforeTask {
+//        println "************ ROOTPROJECT $project.name $it.name task graph beforeTask "
+//    }
+//
+//    gradle.taskGraph.afterTask {
+//        println "************ ROOTPROJECT $project.name $it.name task graph afterTask "
+//    }
+//
+//    beforeEvaluate { project ->
+//        println "************ ROOTPROJECT beforeEvaluate task to $project"
+//    }
+//
+//    afterEvaluate { project ->
+//        println "************ ROOTPROJECT afterEvaluate task to $project"
+//
+//    }
+//
+//    tasks.all { task ->
+//        task.doLast {
+//            println "&&&&&&&&&&&& ROOTPROJECT $task.project.name $task.name doLast"
+//        }
+//    }
+//
+//    tasks.whenTaskAdded { task ->
+//        println "%%%%%%%%%%%%%%%% ROOTPROJECT Add Task $task.project.name $task.name"
+//    }
 }
+
+//gradle.buildStarted {
+//    println "&&&&&&&&&&&& ROOTPROJECT buildStarted $project.name"
+//}
+//
+//gradle.buildFinished {
+//    println "&&&&&&&&&&&& ROOTPROJECT buildFinished $project.name"
+//}
+//
+//gradle.afterProject { project ->
+//    println "************ ROOTPROJECT afterProject $project"
+//}
+//
+//gradle.addBuildListener(new BuildListener() {
+//
+//    @Override
+//    void buildStarted(Gradle gradle) {
+//
+//    }
+//
+//    @Override
+//    void settingsEvaluated(Settings settings) {
+//
+//    }
+//
+//    @Override
+//    void projectsLoaded(Gradle gradle) {
+//
+//    }
+//
+//    @Override
+//    void projectsEvaluated(Gradle gradle) {
+//
+//    }
+//
+//    @Override
+//    void buildFinished(BuildResult result) {
+//
+//    }
+//})
 
 task clean(type: Delete) {
     delete rootProject.buildDir
@@ -42,23 +105,23 @@ task clean(type: Delete) {
 
 ext.versions = ['dagger': "2.11",
                 'kotlin': kotlin_version
-    ]
+]
 ext.deps = [
-        'dagger': [
-            'core': "com.google.dagger:dagger:${versions.dagger}",
-            'compiler': "com.google.dagger:dagger-compiler:${versions.dagger}",
-            'android': "com.google.dagger:dagger-android:${versions.dagger}",
-            'support': "com.google.dagger:dagger-android-support:${versions.dagger}",
-            'processor': "com.google.dagger:dagger-android-processor:${versions.dagger}"
+        'dagger' : [
+                'core'     : "com.google.dagger:dagger:${versions.dagger}",
+                'compiler' : "com.google.dagger:dagger-compiler:${versions.dagger}",
+                'android'  : "com.google.dagger:dagger-android:${versions.dagger}",
+                'support'  : "com.google.dagger:dagger-android-support:${versions.dagger}",
+                'processor': "com.google.dagger:dagger-android-processor:${versions.dagger}"
         ],
-        'kotlin': [
-                'core': "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}",
-                'coroutines': 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.20',
-                'ktx': 'androidx.core:core-ktx:0.2',
+        'kotlin' : [
+                'core'              : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}",
+                'coroutines'        : 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.20',
+                'ktx'               : 'androidx.core:core-ktx:0.2',
                 'coroutines_android': "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"
         ],
         'arouter': [
-                'core': 'com.alibaba:arouter-api:1.3.1',
+                'core'    : 'com.alibaba:arouter-api:1.3.1',
                 'compiler': 'com.alibaba:arouter-compiler:1.1.4'
         ]
 ]

@@ -7,8 +7,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 def containModules = []
+
 android {
     compileSdkVersion 27
+
     defaultConfig {
         applicationId "com.example.nealkyliu.toolsdemo"
         minSdkVersion 24
@@ -30,6 +32,7 @@ android {
     productFlavors {
         huhu1111 {
             dimension "version"
+            applicationIdSuffix
             manifestPlaceholders = ["main_activity_name" : "com.example.nealkyliu.toolsdemo.MainActivity",
                                     "standby_activity_name" : "com.example.nealkyliu.toolsdemo.kotlin.KotlinActivity"]
         }
@@ -168,21 +171,24 @@ android {
 
 
 tpinModules {
+    debuggable true
 
     config {
         main {
             include("feed", "/src/main/module/feed")
 
             includemain("main", "/src/main", "/src/main")
+
+//            include("detail", "/src/main/module/detail")
         }
 
         huhu1111 {
-            include("detail", "/src/main/module/detail")
+//            include("detail", "/src/main/module/detail")
             include("follow", "/src/main/module/follow")
         }
 
         huhu1112 {
-            include("follow", "/src/main/module/follow")
+            include("detail", "/src/main/module/detail")
         }
 
     }
@@ -204,3 +210,24 @@ dependencies {
 ext {
 
 }
+
+androidExtensions {
+
+}
+
+
+//allprojects {
+//    beforeEvaluate { project ->
+//        println "************ SUBPROJECT allprojects beforeEvaluate $project"
+//    }
+//
+//    afterEvaluate { project ->
+//        println "************ SUBPROJECT allprojects afterEvaluate $project"
+//    }
+//}
+//
+//gradle.afterProject {project ->
+//    println "************ SUBPROJECT afterProject $project"
+//}
+
+

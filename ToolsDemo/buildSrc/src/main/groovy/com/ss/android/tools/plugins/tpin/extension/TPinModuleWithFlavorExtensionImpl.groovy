@@ -1,6 +1,7 @@
 package com.ss.android.tools.plugins.tpin.extension
 
 import com.ss.android.tools.plugins.tpin.extension.api.ITPinModuleWithFlavorExtension
+import com.ss.android.tools.plugins.tpin.global.TPinModuleEnvironment
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
@@ -26,6 +27,11 @@ class TPinModuleWithFlavorExtensionImpl extends BaseTPinExtensionImpl implements
     }
 
     @Override
+    void debuggable(boolean debug) {
+        TPinModuleEnvironment.sDebuggable = debug
+    }
+
+    @Override
     void outputManifestDir(String dir) {
 
     }
@@ -36,7 +42,6 @@ class TPinModuleWithFlavorExtensionImpl extends BaseTPinExtensionImpl implements
     }
 
     static class FlavoredTPinModuleNDOFactory implements NamedDomainObjectFactory<TPinModuleConfigImpl> {
-
         Project mProject
 
         FlavoredTPinModuleNDOFactory(Project project) {

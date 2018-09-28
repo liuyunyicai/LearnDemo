@@ -1,1 +1,5 @@
-include ':business:app', ':common:network', ':business:account', ':common:module1', ':common:module2', ':common:module3', ':common:setting', ':business:articlebase', ':common:utils'
+include ':business:app', ':common:network', ':business:account', ':common:module2', ':common:module3', ':common:setting', ':business:articlebase', ':common:utils'
+
+include ':common:module1'
+
+

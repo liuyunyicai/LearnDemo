@@ -4,6 +4,7 @@ import org.gradle.api.Project
 
 
 class TPinModuleEnvironment {
+    static boolean sDebuggable = false
 
     private static Map<String, TPinModuleEnvironmentImpl> mImplMap = new HashMap<>()
 

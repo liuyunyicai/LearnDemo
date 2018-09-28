@@ -24,4 +24,13 @@
     <style name="ActionFeed.HAHHA">
 
     </style>
+
+    <declare-styleable name="MultiOverlapView">
+        <attr name="maxOvImageNum" format="integer|reference" />
+        <attr name="ovImageSize" format="dimension|reference" />
+        <attr name="ovImgOverlapLength" format="dimension|reference" />
+        <attr name="displayTvLeftMargin" format="dimension|reference" />
+        <attr name="displayTvSize" format="dimension|reference" />
+        <attr name="displayTvColor" format="color|reference" />
+    </declare-styleable>
 </resources>

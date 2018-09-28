@@ -12,7 +12,11 @@ import com.example.nealkyliu.toolsdemo.bussiness.test.compontent.DaggerInjectCom
 import com.example.nealkyliu.toolsdemo.bussiness.test.compontent.InjectComponent;
 import com.example.nealkyliu.toolsdemo.bussiness.test.compontent.InjectSubComponent;
 import com.example.nealkyliu.toolsdemo.bussiness.test.scope.ContextLife;
+import com.example.nealkyliu.toolsdemo.utils.DebugLogger;
 import com.example.nealkyliu.toolsdemo.utils.LogUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -63,6 +67,16 @@ public class TestJobImpl {
         Uri uri = Uri.parse(tempUrl);
         uri.getQueryParameter("group_id");
         uri.getQueryParameter("schema");
+
+//        List<String> list = new ArrayList<>();
+//        list.add(4, "ADDED 4");
+//        for (int i = 0; i < 10; i++) {
+//            list.add("INDEX" + i);
+//        }
+//
+//        for (int i = 0; i < list.size(); i++) {
+//            DebugLogger.d("TestJobImpl index ", i, list.get(i));
+//        }
     }
 
     public static String getOneLinkReferrer() {

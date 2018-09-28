@@ -1,17 +1,25 @@
 package com.ss.android.tools.plugins.tpin.global.service
 
+import com.ss.android.tools.plugins.tpin.global.service.container.IModuleContainer
+import com.ss.android.tools.plugins.tpin.global.service.container.ModuleContainer
 import com.ss.android.tools.plugins.tpin.global.service.context.IExecutorContext
 import com.ss.android.tools.plugins.tpin.model.GlobalEnviModel
 import com.ss.android.tools.plugins.tpin.model.TPinModuleModel
+import com.ss.android.tools.plugins.tpin.utils.TPinFlavorHelper
 import com.ss.android.tools.plugins.tpin.utils.TPinUtils
 import com.sun.istack.Nullable
 import org.gradle.api.Project
+import org.gradle.internal.impldep.org.apache.http.util.TextUtils
 
 /**
  * 对当前添加的module进行管理
  **/
 class ModuleManagerService implements IExecutorContext{
+    private static final String MAIN_FLAVOR_NAME = "main"
+
     Project mProject
+
+    String mCurFlavor = null
 
     /**
      * 当前所apply的module
@@ -22,13 +30,19 @@ class ModuleManagerService implements IExecutorContext{
     /**
      * mainModule会一直放在第一个
      **/
-    PSet<TPinModuleModel> mPinModulesSet = new PSet<>()
+    IModuleContainer<TPinModuleModel> mPinModuleContainer = new ModuleContainer<>()
+
+    /**
+     * 不同flavor包含不同的moduleSet； 如果flavor未指定mainModule，则使用main flavor的mainModule
+     **/
+    Map<String, IModuleContainer> mFlavorModulesContainer = new HashMap<>()
 
     // 如果为第一次添加，则应清空之间的设置
     boolean mOriginSourceSetCleared
 
     ModuleManagerService(Project project) {
         mProject = project
+        mGlobalEnviModel = new GlobalEnviModel()
     }
 
     /**
@@ -43,32 +57,36 @@ class ModuleManagerService implements IExecutorContext{
             mOriginSourceSetCleared = true
         }
 
-        TPinModuleModel module = mPinModulesSet.get(name)
+        TPinModuleModel module = mPinModuleContainer.getByName(name)
 
         if (null != module) {
             // 重复添加需要判断是否两次参数不同
             assertModuleSame(name, rootDir, isMain, module)
-            module.addFlavor(flavor)
         } else {
             // 未添加过，则需要先创建，然后添加
             module = new TPinModuleModel.Builder()
                     .project(mProject)
                     .name(name)
-                    .flavor(flavor)
                     .rootDir(rootDir)
                     .codeRootDir(codeRootDir)
                     .mainModule(isMain)
                     .build()
-
-            if (module.isMainModule) {
-                assetMainModuleNotSetted()
-
-                // 创建GlobalEnvModle
-                mGlobalEnviModel = new GlobalEnviModel()
-
-            }
-            mPinModulesSet.add(module)
+            mPinModuleContainer.addOrThrow(module, isMain)
         }
+
+        includeModuleWithFlavor(module, flavor, isMain)
+    }
+
+    /**
+     * 将module添加到对应的flavor Container中
+     **/
+    private void includeModuleWithFlavor(TPinModuleModel module, String flavor, boolean isMain) {
+        IModuleContainer moduleContainer = mFlavorModulesContainer.get(flavor)
+        if (null == moduleContainer) {
+            moduleContainer = new ModuleContainer()
+            mFlavorModulesContainer.put(flavor, moduleContainer)
+        }
+        moduleContainer.add(module, isMain)
     }
 
 
@@ -82,7 +100,8 @@ class ModuleManagerService implements IExecutorContext{
      **/
     void clearModules() {
         TPinUtils.logInfo("clearModules")
-        mPinModulesSet.clear()
+        mPinModuleContainer.clear()
+        mFlavorModulesContainer.clear()
     }
 
     /**
@@ -113,21 +132,13 @@ class ModuleManagerService implements IExecutorContext{
         }
     }
 
-    /**
-     * 由于已经进行了排序，因此检查第一个即可
-     **/
     boolean isMainModuleSetted() {
-        def first = mPinModulesSet.first()
-
-        if (first.isMainModule) {
-            return true
-        }
-        return false
+        return mPinModuleContainer.isMainSetted()
     }
 
     @Override
     Collection<TPinModuleModel> getPinModules() {
-        return mPinModulesSet
+        return mPinModuleContainer.getAlls()
     }
 
     @Override
@@ -146,32 +157,76 @@ class ModuleManagerService implements IExecutorContext{
     }
 
     @Override
+    String getMainFlavor() {
+        return MAIN_FLAVOR_NAME
+    }
+
+    @Override
+    String getCurFlavor() {
+        if (TPinUtils.isEmpty(mCurFlavor)) {
+            def flavor = TPinFlavorHelper.getCurrentFlavor(mProject)
+            mCurFlavor = TPinUtils.isEmpty(flavor) ? MAIN_FLAVOR_NAME : flavor
+        }
+        return mCurFlavor
+    }
+
+    @Override
+    Collection<String> getAllFlavors() {
+        return mFlavorModulesContainer.keySet()
+    }
+
+    @Override
     GlobalEnviModel getGlobalEnviModel() {
         return mGlobalEnviModel
     }
 
     @Override
-    @Nullable
-    TPinModuleModel getMainModule() {
-        def first = mPinModulesSet.first()
+    TPinModuleModel getFlavorMainModule(String flavor) {
+        def flavorModule = getSingleFlavorMainModule(flavor)
+        def mainModule = getSingleFlavorMainModule(MAIN_FLAVOR_NAME)
 
-        if (first.isMainModule) {
-            return first
+        // flavor优先级高于main
+        if (null != flavorModule) {
+            return flavorModule
         }
-
-        return null
+        return mainModule
     }
 
-    static class PSet<TPinModuleModel> extends TreeSet<TPinModuleModel> {
-        TPinModuleModel get(String name) {
-            TPinModuleModel find = null
-            this.each {
-                if (it.mName.equals(name)) {
-                    find = it
-                    return true
-                }
-            }
-            return find
-        }
+    @Override
+    Collection<TPinModuleModel> getFlavorPinModules(String flavor) {
+        def flavorModules = getSingleFlavorPinModules(flavor)
+        def mainModules = getSingleFlavorPinModules(MAIN_FLAVOR_NAME)
+
+        TPinUtils.logInfo("getFlavorPinModules", flavorModules, mainModules)
+
+        return TPinUtils.mergeCollections(flavorModules, mainModules)
+    }
+
+    @Override
+    TPinModuleModel getCurFlavorMainModule() {
+        return getFlavorMainModule(curFlavor)
+    }
+
+    @Override
+    Collection<TPinModuleModel> getCurFlavorPinModules() {
+        return getFlavorPinModules(curFlavor)
+    }
+
+    @Override
+    TPinModuleModel getSingleFlavorMainModule(String flavor) {
+        def container = mFlavorModulesContainer.get(flavor)
+        return null == container ? null : container.getMain()
+    }
+
+    @Override
+    Collection<TPinModuleModel> getSingleFlavorPinModules(String flavor) {
+        def container = mFlavorModulesContainer.get(flavor)
+        return null == container ? null : container.getAlls()
+    }
+
+    @Override
+    @Nullable
+    TPinModuleModel getMainModule() {
+        return mPinModuleContainer.getMain()
     }
 }

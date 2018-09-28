@@ -24,7 +24,7 @@ class MergeManifestExecutor extends BaseExecutor {
 
     @Override
     void execute(IExecutorContext context) {
-        mergeMainAndroidManifest(context.globalEnviModel, context.pinModules, context.mainModule)
+        mergeMainAndroidManifest(context.globalEnviModel, context.curFlavorPinModules, context.curFlavorMainModule)
     }
 
     /**
@@ -39,7 +39,7 @@ class MergeManifestExecutor extends BaseExecutor {
     }
 
     /**
-     * sava
+     * save
      **/
     private File doSave(GlobalEnviModel globalEnviModel, String moduleAndroidManifest) {
         def saveDir = TPinGradleUtils.createFile(mProject, globalEnviModel.mMainfestDir)

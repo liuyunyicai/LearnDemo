@@ -1,5 +1,6 @@
 package com.example.nealkyliu.toolsdemo.bussiness.test.job;
 
+import com.example.nealkyliu.toolsdemo.bussiness.test.job.impl.TestJob4;
 import com.example.nealkyliu.toolsdemo.rxjava.TestJob2;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class TestExecutor {
     public TestExecutor() {
         mJobs.add(new TestJob());
         mJobs.add(new TestJob2());
+        mJobs.add(new TestJob4());
     }
 
     public void addJob(IJob job) {

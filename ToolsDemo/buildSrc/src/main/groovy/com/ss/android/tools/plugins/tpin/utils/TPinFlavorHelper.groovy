@@ -25,12 +25,13 @@ class TPinFlavorHelper {
 
         Matcher matcher = pattern.matcher(tskReqStr)
 
-        if (matcher.find())
-            return matcher.group(1).toLowerCase()
-        else {
-            println "NO MATCH FOUND"
-            return ""
+        String flavor = null
+        if (matcher.find()) {
+            flavor =  matcher.group(1).toLowerCase()
         }
+
+        TPinUtils.logInfo ("getCurrentFlavor", flavor)
+        return flavor
     }
 
     /**
